@@ -1,11 +1,16 @@
 class Question < ApplicationRecord
-    validates :question, uniqueness: true
+    validates :question, presence: true, uniqueness: true
+    validates :category, presence: true
+    validates :difficulty, inclusion: { in: %w(easy medium hard) }
+    validates :correct_answer, presence: true
+    validates :incorrect_answers, presence: true
+
 
     def self.get_and_save_questions token
         questions_json = RestClient.get "https://opentdb.com/api.php?amount=50&type=multiple&token=#{token}"
         questions = JSON.parse(questions_json)
         questions['results'].each do |question|
-            new_question = create({
+            new_question = create!({
                 category: question['category'],
                 difficulty: question["difficulty"],
                 question: question['question'],
