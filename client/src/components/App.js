@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Container from '@mui/material/Container';
+import SignIn from "./SignIn";
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
@@ -13,17 +14,10 @@ function App() {
   }, []);
 
   return (
-      <Container>
-        <CssBaseline />
-        <Switch>
-          <Route path="/testing">
-            <h1>Test Route</h1>
-          </Route>
-          <Route path="/">
-            <h1>Page Count: {count}</h1>
-          </Route>
-        </Switch>
-        </Container>
+    <>
+    <CssBaseline />
+    <SignIn />
+    </>
   );
 }
 
