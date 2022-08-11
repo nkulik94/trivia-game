@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/user';
+import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import './index.css';
 import App from './components/App'
 import '@fontsource/roboto/300.css';
@@ -10,14 +11,27 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import reportWebVitals from './reportWebVitals';
 
+let theme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      paper: '#191970',
+      default: '#191970'
+    }
+  },
+})
+theme = responsiveFontSizes(theme);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
-        <App />
-      </UserProvider>
-    </BrowserRouter>
+    <ThemeProvider theme={theme} >
+      <BrowserRouter>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
