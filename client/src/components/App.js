@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import Container from '@mui/material/Container';
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
   return (
     <>
     <CssBaseline />
-    <SignIn />
+    <SignUp />
     </>
   );
 }
