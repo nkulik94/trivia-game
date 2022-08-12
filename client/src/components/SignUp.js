@@ -9,9 +9,11 @@ import Box from '@mui/material/Box';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import ErrorMsg from './ErrorMsg';
 
 function SignUp() {
   const userContext = useContext(UserContext)
+  console.log(userContext.user)
 
   const [formData, setFormData] = useState({
       name: '',
@@ -20,9 +22,43 @@ function SignUp() {
       password: '',
       password_confirmation: ''
   })
+  const [errors, setErrors] = useState(null)
 
   function handleForm(e) {
     setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
+  function handleError(errors) {
+    setErrors(errors)
+    setTimeout(() => setErrors(null), 3000)
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    }
+    fetch('/signup', config)
+      .then(r => {
+        if (r.ok) {
+          r.json().then(user => {
+            setFormData({
+              name: '',
+              email: '',
+              username: '',
+              password: '',
+              password_confirmation: ''
+            })
+            userContext.setUser(user)
+          })
+        } else {
+          r.json().then(({ errors }) => handleError(errors))
+        }
+      })
   }
 
   return (
@@ -41,7 +77,7 @@ function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate sx={{ mt: 3 }}>
+          <Box component="form" noValidate sx={{ mt: 3 }} onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -107,6 +143,7 @@ function SignUp() {
                 />
               </Grid>
             </Grid>
+            {errors ? errors.map(error => <ErrorMsg error={error} key={error}/>) : null}
             <Button
               type="submit"
               fullWidth

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
     def create
         user = User.create!(user_params)
+        user.update(points: 500)
         session[:user_id] = user.id
         render json: user, status: :created
     end
@@ -17,6 +18,10 @@ class UsersController < ApplicationController
     end
 
     private
+
+    def user_params
+        params.permit(:name, :username, :email, :password, :password_confirmation)
+    end
 
     def render_not_found_response
         render json: { error: "User not found" }, status: :not_found
