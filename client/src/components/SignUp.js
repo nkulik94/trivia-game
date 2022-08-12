@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../context/user'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,6 +11,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 function SignUp() {
+  const userContext = useContext(UserContext)
+
+  const [formData, setFormData] = useState({
+      name: '',
+      email: '',
+      username: '',
+      password: '',
+      password_confirmation: ''
+  })
+
+  function handleForm(e) {
+    setFormData({...formData, [e.target.name]: e.target.value})
+  }
+
   return (
       <Container component="main" maxWidth="xs">
         <Box
@@ -36,6 +51,8 @@ function SignUp() {
                   fullWidth
                   id="name"
                   label="Name"
+                  value={formData.name}
+                  onChange={handleForm}
                   autoFocus
                 />
               </Grid>
@@ -46,6 +63,8 @@ function SignUp() {
                   fullWidth
                   id="username"
                   label="Username"
+                  value={formData.username}
+                  onChange={handleForm}
                   autoFocus
                 />
               </Grid>
@@ -57,6 +76,8 @@ function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={handleForm}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -68,6 +89,8 @@ function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  value={formData.password}
+                  onChange={handleForm}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -79,6 +102,8 @@ function SignUp() {
                   type="password"
                   id="password-confirmation"
                   autoComplete="new-password"
+                  value={formData.password_confirmation}
+                  onChange={handleForm}
                 />
               </Grid>
             </Grid>

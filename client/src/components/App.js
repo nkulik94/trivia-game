@@ -5,18 +5,18 @@ import SignUp from "./SignUp";
 import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
-  }, []);
 
   return (
     <>
     <CssBaseline />
-    <SignUp />
+    <Switch>
+      <Route path="/create-account">
+        <SignUp />
+      </Route>
+      <Route path="/sign-in">
+        <SignIn />
+      </Route>
+    </Switch>
     </>
   );
 }
