@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link as RouterLink} from 'react-router-dom'
 import { UserContext } from '../context/user'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -154,7 +155,7 @@ function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link component={RouterLink} to="/sign-in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

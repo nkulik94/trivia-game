@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { UserContext } from '../context/user';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -10,6 +12,7 @@ import Container from '@mui/material/Container';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 
 function SignIn() {
+  const userContext = useContext(UserContext)
 
   return (
       <Container component="main" maxWidth="xs">
@@ -58,7 +61,7 @@ function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link component={RouterLink} to="/create-account" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
