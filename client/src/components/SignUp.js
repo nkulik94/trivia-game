@@ -14,7 +14,6 @@ import ErrorMsg from './ErrorMsg';
 
 function SignUp() {
   const userContext = useContext(UserContext)
-  console.log(userContext.user)
 
   const [formData, setFormData] = useState({
       name: '',
