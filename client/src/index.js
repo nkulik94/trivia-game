@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/user';
+import ActionCable from 'actioncable';
+import { ActionCableProvider } from 'react-actioncable-provider'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import './index.css';
 import App from './components/App'
@@ -21,16 +23,20 @@ let theme = createTheme({
   },
 })
 theme = responsiveFontSizes(theme);
+const actionCableUrl = process.env.NODE_ENV === ('development' || 'test') ? 'wss://localhost:3000/cable' : 'wss://backward-jeopardy.herokuapp.com/cable'
+const cable = ActionCable.createConsumer(actionCableUrl);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme} >
-      <BrowserRouter>
-        <UserProvider>
-          <App />
-        </UserProvider>
-      </BrowserRouter>
+      <ActionCableProvider cable={cable}>
+        <BrowserRouter>
+          <UserProvider>
+            <App />
+          </UserProvider>
+        </BrowserRouter>
+      </ActionCableProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

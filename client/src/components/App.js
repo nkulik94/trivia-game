@@ -8,9 +8,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
   const setUser = useContext(UserContext).setUser
-  const actionCableUrl = process.env.NODE_ENV === ('development' || 'test') ? 'wss://localhost:3000/cable' : 'wss://backward-jeopardy.herokuapp.com/cable'
+  //const actionCableUrl = process.env.NODE_ENV === ('development' || 'test') ? 'wss://localhost:3000/cable' : 'wss://backward-jeopardy.herokuapp.com/cable'
 
-  console.log(actionCableUrl)
+  //console.log(actionCableUrl)
   useEffect(() => {
     fetch('/me')
         .then(r => {
