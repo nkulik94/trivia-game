@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { UserContext } from "../context/user";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
@@ -18,6 +18,7 @@ function App() {
         })
   }, [])
 
+  console.log(process.env.NODE_ENV)
   return (
     <>
     <CssBaseline />
