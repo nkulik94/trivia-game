@@ -5,6 +5,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import LogOutBtn from "./LogoutBtn";
 import CssBaseline from '@mui/material/CssBaseline';
+import TestCable from './TestCable'
 
 function App() {
   const setUser = useContext(UserContext).setUser
@@ -23,7 +24,7 @@ function App() {
     <CssBaseline />
     <Switch>
       <Route exact path="/">
-        <LogOutBtn />
+        <TestCable />
       </Route>
       <Route path="/create-account">
         <SignUp />
