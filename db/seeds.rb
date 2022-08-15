@@ -8,6 +8,6 @@ token = JSON.parse(session)["token"]
 
 puts "getting questions..."
 
-Question.get_and_save_questions(token)
+Question.get_all_questions(token)
 
 puts "done seeding!"
