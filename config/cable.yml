@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
+  url: redis://:p1699b67a21113d8d10f08c9de5503d337ed648507cafc20c9a11acf3a005571f@ec2-35-169-17-255.compute-1.amazonaws.com:26829
   channel_prefix: trivia_game_production
