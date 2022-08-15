@@ -12,7 +12,7 @@ function ShowBroadcast() {
             channel: 'TestChannel'
         },
         {
-            received: (list) => console.log(list)
+            received: (list) => setQuestions(list.list)
         }))
     }, [])
     console.log(channel)
