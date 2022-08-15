@@ -5,23 +5,26 @@ function ShowBroadcast() {
     const cableContext = useContext(CableContext)
 
     const [questions, setQuestions] = useState([])
-    const [channel, setChannel] = useState(null)
+    // const [channel, setChannel] = useState(null)
+
+    // useEffect(() => {
+    //     setChannel(cableContext.cable.subscriptions.create({
+    //         channel: 'TestChannel'
+    //     },
+    //     {
+    //         received: (list) => setQuestions(list.list)
+    //     }))
+    // }, [])
 
     useEffect(() => {
-        setChannel(cableContext.cable.subscriptions.create({
-            channel: 'TestChannel'
-        },
-        {
-            received: (list) => setQuestions(list.list)
-        }))
+        fetch('/questions')
+        .then(r => r.json())
+        .then(setQuestions)
     }, [])
-    console.log(channel)
-
-    console.log(questions)
 
     return (
         <ul>
-            {questions.map(question => <li key={question.id}>{question.question}</li>)}
+            {questions.map(question => <li key={question.id}>{question.question.normalize()}</li>)}
         </ul>
     )
 }

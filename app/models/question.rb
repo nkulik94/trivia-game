@@ -18,6 +18,10 @@ class Question < ApplicationRecord
                     correct_answer: question['correct_answer'],
                     incorrect_answers: question['incorrect_answers'].join('|')
                 })
+                new_question.question['&quot;'] = "\"" until !new_question.question['&quot;']
+                new_question.question['&#039;'] = "\'" until !new_question.question['&#039;']
+                new_question.question['&eacute;'] = "\u00E9" until !new_question.question['&eacute;']
+                new_question.save
                 puts new_question.question
             end
             puts difficulty
