@@ -1,5 +1,5 @@
 class ChallengesController < ApplicationController
-    #before_action :authorize
+    before_action :authorize
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
@@ -7,7 +7,7 @@ class ChallengesController < ApplicationController
     end
 
     def create
-        user = User.find(params[:user_id])
+        user = User.find(session[:user_id])
         challenge = user.create_challenge(stakes: params[:stakes])
         serialized_challenge = ActiveModelSerializers::Adapter::Json.new(
             ChallengeSerializer.new(challenge)

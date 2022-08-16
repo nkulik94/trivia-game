@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-function AwaitingAcceptance() {
+function AwaitingAcceptance({ handleCancel }) {
     return (
         <Box sx={{
             width: '60%',
@@ -19,7 +19,7 @@ function AwaitingAcceptance() {
                 Waiting for challenge to be accepted...
             </Typography>
             <br/>
-            <Button color="error" variant="contained">Cancel</Button>
+            <Button color="error" variant="contained" onClick={handleCancel}>Cancel</Button>
         </Box>
     )
 }

@@ -1,6 +1,6 @@
 class StartChallengeChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "#{params[:id]}_challenge"
+    stream_from "#{params[:user_id]}_challenge"
   end
 
   def unsubscribed
