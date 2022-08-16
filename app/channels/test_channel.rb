@@ -10,6 +10,6 @@ class TestChannel < ApplicationCable::Channel
   # end
 
   def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
+    stop_all_streams
   end
 end

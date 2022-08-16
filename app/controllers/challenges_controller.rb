@@ -16,6 +16,13 @@ class ChallengesController < ApplicationController
         head :ok
     end
 
+    def destroy
+        challenge = Challenge.find(params[:id])
+        challenge.destroy
+        ActionCable.server.broadcast("challenge_channel", { challenge: { deleted: true, id: challenge.id} })
+        head :no_content
+    end
+
     private
 
     def render_unprocessable_entity_response(invalid)
