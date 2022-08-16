@@ -1,8 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Container from '@mui/material/Container';
+import List from '@mui/material/List';
+import Challenge from './Challenge';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 import { CableContext } from '../context/cable';
 
-function ShowBroadcast() {
+function ChallengeList() {
     const cableContext = useContext(CableContext)
 
     const [challenges, setChallenges] = useState([])
@@ -28,13 +32,15 @@ function ShowBroadcast() {
     }
 
     return (
-        <>
-        <Link to="/create-account">create account</Link>
-        <ul>
-            {challenges.map(challenge => <li key={challenge.id}>{challenge.user_username}</li>)}
-        </ul>
-        </>
+        <Container maxWidth="xs">
+            <Paper sx={{textAlign: 'center', overflow: 'auto'}}>
+                <Typography variant='h4'>Available Challenges</Typography>
+                <List sx={{maxHeight: 300}}>
+                    {challenges.map(challenge => <Challenge key={challenge.id} challenge={challenge} />)}
+                </List>
+            </Paper>
+        </Container>
     )
 }
 
-export default ShowBroadcast
+export default ChallengeList
