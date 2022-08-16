@@ -3,7 +3,7 @@ import { UserContext } from "../context/user";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import LogOutBtn from "./LogoutBtn";
+import CreateChallenge from "./CreateChallenge";
 import CssBaseline from '@mui/material/CssBaseline';
 import ChallengeList from "./ChallengeList";
 
@@ -24,7 +24,10 @@ function App() {
     <CssBaseline />
     <Switch>
       <Route exact path="/">
+        <>
         <ChallengeList />
+        <CreateChallenge />
+        </>
       </Route>
       <Route path="/create-account">
         <SignUp />
