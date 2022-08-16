@@ -84,6 +84,8 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     erubi (1.11.0)
+    faker (2.22.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -199,6 +201,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   byebug
+  faker (~> 2.19)
   figaro
   listen (~> 3.3)
   net-http

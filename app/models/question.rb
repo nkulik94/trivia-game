@@ -11,7 +11,7 @@ class Question < ApplicationRecord
             questions_json = RestClient.get "https://opentdb.com/api.php?amount=50&difficulty=#{difficulty}&type=multiple&token=#{token}"
             questions = JSON.parse(questions_json)
             questions['results'].each do |question|
-                new_question = create!({
+                new_question = create({
                     category: question['category'],
                     difficulty: question["difficulty"],
                     question: question['question'],
