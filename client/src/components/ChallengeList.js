@@ -32,7 +32,7 @@ function ChallengeList() {
     }
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth='xs'>
             <Paper sx={{textAlign: 'center', overflow: 'auto'}}>
                 <Typography variant='h4'>Available Challenges</Typography>
                 <List sx={{maxHeight: 300}}>
