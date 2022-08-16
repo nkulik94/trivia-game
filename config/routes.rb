@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :questions
+  resources :games, only: [:create, :update, :destroy]
 
   post "/signup", to: "users#create"
 

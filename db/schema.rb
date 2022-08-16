@@ -15,12 +15,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_15_205627) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.integer "pool"
+    t.integer "player_1_contribution"
+    t.integer "player_2_contribution"
+    t.integer "player_1_winnings", default: 0
+    t.integer "player_2_winnings", default: 0
+    t.integer "total_pool"
     t.integer "user_id"
     t.integer "player_2_id"
-    t.boolean "is_buzzed", default: false
-    t.string "buzzed_by"
+    t.integer "buzzed_by_id"
     t.string "turn"
+    t.integer "passcode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
