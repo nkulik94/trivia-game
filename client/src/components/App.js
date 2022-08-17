@@ -3,9 +3,9 @@ import { UserContext } from "../context/user";
 import { Switch, Route } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-import CreateChallenge from "./CreateChallenge";
 import CssBaseline from '@mui/material/CssBaseline';
-import ChallengeList from "./ChallengeList";
+import Dashboard from "./Dashboard";
+import Home from "./Home";
 
 function App() {
   const setUser = useContext(UserContext).setUser
@@ -24,10 +24,10 @@ function App() {
     <CssBaseline />
     <Switch>
       <Route exact path="/">
-        <>
-        <ChallengeList />
-        <CreateChallenge />
-        </>
+        <Home />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard />
       </Route>
       <Route path="/create-account">
         <SignUp />

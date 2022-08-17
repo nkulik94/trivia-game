@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-function ChallengeForm({ handleChallenge }) {
+function ChallengeForm({ handleChallenge, button }) {
     const [stakes, setStakes] = useState('')
 
     function handleSubmit(e) {
@@ -14,6 +14,7 @@ function ChallengeForm({ handleChallenge }) {
 
     return (
         <Box sx={{textAlign: 'center'}}>
+            {button}
             <Typography variant='h5' sx={{paddingTop: '2%'}}>Send a Challenge</Typography>
             <Box component='form' sx={{
                 margin: 'auto',

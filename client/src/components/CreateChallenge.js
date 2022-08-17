@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AwaitingAcceptance from "./AwaitingAcceptance";
 
-function CreateChallenge() {
+function CreateChallenge({ button }) {
     const cableContext = useContext(CableContext)
     const userContext = useContext(UserContext)
 
@@ -51,7 +51,7 @@ function CreateChallenge() {
     return (
         <Container maxWidth='xs'>
             <Paper>
-                {showForm ? <ChallengeForm handleChallenge={handleChallenge}/> : <AwaitingAcceptance handleCancel={handleCancel} />}
+                {showForm ? <ChallengeForm button={button} handleChallenge={handleChallenge}/> : <AwaitingAcceptance handleCancel={handleCancel} />}
             </Paper>
         </Container>
     )

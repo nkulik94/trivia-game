@@ -6,7 +6,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { CableContext } from '../context/cable';
 
-function ChallengeList() {
+function ChallengeList({ button }) {
     const cableContext = useContext(CableContext)
 
     const [challenges, setChallenges] = useState([])
@@ -37,6 +37,7 @@ function ChallengeList() {
     return (
         <Container maxWidth='xs'>
             <Paper sx={{textAlign: 'center', overflow: 'auto'}}>
+                {button}
                 <Typography variant='h4'>Available Challenges</Typography>
                 <List sx={{maxHeight: 300}}>
                     {challenges.map(challenge => <Challenge key={challenge.id} challenge={challenge} />)}
