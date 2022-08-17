@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './context/user';
 import { CableProvider } from './context/cable';
+import { GameProvider } from './context/game';
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import './index.css';
 import App from './components/App'
@@ -30,7 +31,9 @@ root.render(
       <CableProvider>
         <BrowserRouter>
           <UserProvider>
-            <App />
+            <GameProvider>
+              <App />
+            </GameProvider>
           </UserProvider>
         </BrowserRouter>
       </CableProvider>

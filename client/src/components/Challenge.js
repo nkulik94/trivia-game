@@ -19,6 +19,8 @@ function Challenge({ challenge }) {
         {
             received: (data) => console.log(data)
         })
+
+        newChannel.send({accepted: true})
     }
     return (
         <ListItem
