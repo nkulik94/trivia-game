@@ -14,8 +14,11 @@ function ChallengeList() {
 
     useEffect(() => {
         fetch('/challenges')
-            .then(r => r.json())
-            .then(setChallenges)
+            .then(r => {
+                if (r.ok) {
+                    r.json().then(setChallenges)
+                }
+            })
         const channel = cableContext.cable.subscriptions.create({
             channel: 'ChallengeChannel'
         },

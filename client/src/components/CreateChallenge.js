@@ -11,11 +11,12 @@ function CreateChallenge() {
     const cableContext = useContext(CableContext)
     const userContext = useContext(UserContext)
 
-    const [showForm, setShowForm] = useState(true)
     const [channel, setChannel] = useState(null)
+    const [showForm, setShowForm] = useState(true)
 
     function handleCancel() {
-        
+        channel.unsubscribe()
+        setShowForm(true)
     }
 
     function handleChallenge(stakes) {
@@ -39,6 +40,7 @@ function CreateChallenge() {
                     received: console.log
                 }
                 )
+
                 setChannel(newChannel)
 
                 setShowForm(false)
