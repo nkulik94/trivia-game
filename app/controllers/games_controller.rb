@@ -1,6 +1,11 @@
 class GamesController < ApplicationController
     before_action :authorize
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+
+    def show
+        render json: Game.find(params[:id])
+    end
 
     def create
         game = User.find(session[:user_id]).games.create(player_2_id: params[:player_2_id], stakes: params[:stakes], pool: params[:stakes] * 2, turn: 'player_1')
@@ -10,8 +15,12 @@ class GamesController < ApplicationController
 
     private
 
-    def create_params
-        params.permit(:player_2_id, :stakes)
+    # def create_params
+    #     params.permit(:player_2_id, :stakes)
+    # end
+
+    def render_not_found_response
+        render json: { error: "Game not found" }, status: :not_found
     end
 
     def render_unprocessable_entity_response(invalid)

@@ -1,5 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CableContext } from "../context/cable";
+import { GameContext } from "../context/game";
+import { UserContext } from "../context/user";
 import ListItem from '@mui/material/ListItem';
 import Button from '@mui/material/Button';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -9,7 +11,8 @@ import { Typography } from "@mui/material";
 
 function Challenge({ challenge }) {
     const cableContext = useContext(CableContext)
-    //const [channel, setChannel] = useState(null)
+    const gameContext = useContext(GameContext)
+    const userContext = useContext(UserContext)
 
     function handleAccept() {
         const newChannel = cableContext.cable.subscriptions.create({
@@ -17,10 +20,15 @@ function Challenge({ challenge }) {
             user_id: challenge.user_id
         },
         {
-            received: (data) => console.log(data)
+            received: (data) => {
+                if (data.gameId) {
+                    gameContext.getAndSetGame(data.gameId)
+                    newChannel.unsubscribe()
+                }
+            }
         })
 
-        newChannel.send({accepted: true})
+        newChannel.send({player_2_id: userContext.user.id})
     }
     return (
         <ListItem
