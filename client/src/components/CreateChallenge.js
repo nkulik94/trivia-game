@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from '../context/user'
 import { CableContext } from '../context/cable'
 import Container from '@mui/material/Container';
@@ -13,6 +13,14 @@ function CreateChallenge({ button }) {
 
     const [channel, setChannel] = useState(null)
     const [showForm, setShowForm] = useState(true)
+
+    useEffect(() => {
+        return () => {
+            if (channel) {
+                channel.unsubscribe()
+            }
+        }
+    }, [channel])
 
     function handleCancel() {
         channel.unsubscribe()
@@ -37,7 +45,12 @@ function CreateChallenge({ button }) {
                     user_id: userContext.user.id
                 },
                 {
-                    received: console.log
+                    received: (data) => {
+                        console.log(data)
+                        if (data.hi) {
+                            newChannel.send({hello: 'hello'})
+                        }
+                    }
                 }
                 )
 

@@ -1,5 +1,5 @@
 class ChallengeSerializer < ActiveModel::Serializer
-  attributes :id, :stakes, :user_username, :user_record, :user_avatar
+  attributes :id, :stakes, :user_id, :user_username, :user_record, :user_avatar
 
   def user_username
     self.object.user.username

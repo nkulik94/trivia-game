@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { CableContext } from "../context/cable";
 import ListItem from '@mui/material/ListItem';
 import Button from '@mui/material/Button';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
@@ -7,10 +8,22 @@ import Avatar from '@mui/material/Avatar';
 import { Typography } from "@mui/material";
 
 function Challenge({ challenge }) {
+    const cableContext = useContext(CableContext)
+    //const [channel, setChannel] = useState(null)
+
+    function handleAccept() {
+        const newChannel = cableContext.cable.subscriptions.create({
+            channel: 'StartChallengeChannel',
+            user_id: challenge.user_id
+        },
+        {
+            received: (data) => console.log(data)
+        })
+    }
     return (
         <ListItem
         secondaryAction={
-            <Button>Accept</Button>
+            <Button onClick={handleAccept}>Accept</Button>
         }
         >
             <ListItemAvatar>
