@@ -8,11 +8,16 @@ class Game < ApplicationRecord
     end
 
     def get_question difficulty
-        question = Question.where(difficulty).sample until !self.questions.find_by(id: question.id)
-        self << question
+        question = self.find_new_question(difficulty)
+        self.questions << question
         serialized_question = ActiveModelSerializers::Adapter::Json.new(
         QuestionSerializer.new(question)
         ).serializable_hash
         serialized_question
+    end
+
+    def find_new_question difficulty
+        question = Question.where(difficulty).sample
+        self.questions.find_by(id: question.id) ? self.find_new_question(difficulty) : question
     end
 end

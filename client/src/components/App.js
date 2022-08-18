@@ -6,6 +6,7 @@ import SignUp from "./SignUp";
 import CssBaseline from '@mui/material/CssBaseline';
 import Dashboard from "./Dashboard";
 import Home from "./Home";
+import Game from "./Game";
 
 function App() {
   const setUser = useContext(UserContext).setUser
@@ -34,6 +35,9 @@ function App() {
       </Route>
       <Route path="/sign-in">
         <SignIn />
+      </Route>
+      <Route path="/play">
+        <Game />
       </Route>
     </Switch>
     </>

@@ -4,9 +4,9 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def receive data
-    game = Game.find(params[:id])
-    if data.difficulty
-      question = game.get_question(data)
+    game = Game.find(params[:game_id])
+    if data['difficulty']
+      question = game.get_question(difficulty: data['difficulty'])
       ActionCable.server.broadcast("game_#{params[:game_id]}_channel", question)
     end
 

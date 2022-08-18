@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   delete "/logout", to: "sessions#destroy"
 
+  get "/current-game", to: "game_sessions#show"
+
+  delete "/current-game", to: "game_sessions#destroy"
+
   mount ActionCable.server => '/cable'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
