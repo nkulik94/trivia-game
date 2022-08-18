@@ -4,8 +4,12 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def receive data
-    question = Question.where(data).sample until !Game.find(params[:id]).questions.find_by(id: question.id)
-    
+    game = Game.find(params[:id])
+    if data.difficulty
+      question = game.get_question(data)
+      ActionCable.server.broadcast("game_#{params[:game_id]}_channel", question)
+    end
+
   end
 
   def unsubscribed
