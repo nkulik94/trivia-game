@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+    has_and_belongs_to_many :games
     validates :question, presence: true, uniqueness: true
     validates :category, presence: true
     validates :difficulty, inclusion: { in: %w(easy medium hard) }

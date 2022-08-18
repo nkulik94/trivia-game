@@ -13,11 +13,11 @@ class GamesController < ApplicationController
         render json: game, status: :created
     end
 
-    private
+    def update
+        
+    end
 
-    # def create_params
-    #     params.permit(:player_2_id, :stakes)
-    # end
+    private
 
     def render_not_found_response
         render json: { error: "Game not found" }, status: :not_found

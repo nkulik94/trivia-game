@@ -15,7 +15,7 @@ function ChallengeForm({ handleChallenge, button }) {
     return (
         <Box sx={{textAlign: 'center'}}>
             {button}
-            <Typography variant='h5' sx={{paddingTop: '2%'}}>Send a Challenge</Typography>
+            <Typography variant='h5' sx={{paddingTop: '2%'}}>Initiate a Challenge</Typography>
             <Box component='form' sx={{
                 margin: 'auto',
                 paddingTop: '20%',

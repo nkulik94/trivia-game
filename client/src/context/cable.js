@@ -4,7 +4,7 @@ import ActionCable from "actioncable";
 const CableContext = React.createContext();
 
 function CableProvider({ children }) {
-    const actionCableUrl = process.env.NODE_ENV === ('development' || 'test') ? 'ws://localhost:3000/cable' : 'wss://backward-jeopardy.herokuapp.com/cable'
+    const actionCableUrl = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test' ? 'ws://localhost:3000/cable' : 'wss://backward-jeopardy.herokuapp.com/cable'
 
     const CableApp = {}
     CableApp.cable = ActionCable.createConsumer(actionCableUrl)

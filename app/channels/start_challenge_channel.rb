@@ -8,12 +8,12 @@ class StartChallengeChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    user = User.find(current_user.id)
+    user = User.find(params[:user_id])
     if user.challenge
-      id = user.challenge.id
       user.challenge.destroy
+      id = user.challenge.id
+      ActionCable.server.broadcast("challenge_channel", { challenge: { deleted: true, id: id} })
     end
-    ActionCable.server.broadcast("challenge_channel", { challenge: { deleted: true, id: id} })
     stop_stream_from "#{params[:user_id]}_challenge"
   end
 end
