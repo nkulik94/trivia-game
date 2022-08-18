@@ -10,7 +10,7 @@ class GamesController < ApplicationController
     end
 
     def create
-        game = User.find(session[:user_id]).games.create(player_2_id: params[:player_2_id], stakes: params[:stakes], pool: params[:stakes] * 2, turn: 'player_1')
+        game = User.find(session[:user_id]).games.create(player_2_id: params[:player_2_id], stakes: params[:stakes], pool: params[:stakes] * 2, player_1_turn: true)
         ActionCable.server.broadcast("#{session[:user_id]}_challenge", {game_id: game.id})
         session[:game_id] = game.id
         render json: game, status: :created
