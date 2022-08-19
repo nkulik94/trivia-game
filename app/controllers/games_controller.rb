@@ -16,10 +16,6 @@ class GamesController < ApplicationController
         render json: game, status: :created
     end
 
-    def update
-
-    end
-
     private
 
     def render_not_found_response

@@ -21,9 +21,9 @@ function Game() {
     const [headline, setHeadline] = useState('Starting in...')
     // const [userReady, setUserReady] = useState(false)
     // const [opponentReady, setOpponentReady] = useState(false)
-    const [timer, setTimer] = useState(30)
+    const [timer, setTimer] = useState('')
 
-    function subscribeToGameChannel(id) {
+    function subscribeToChannels(id, isNew) {
         const gameChannel = cableContext.cable.subscriptions.create({
             channel: "GameChannel",
             game_id: id
@@ -31,24 +31,36 @@ function Game() {
         {
            received: console.log
         })
-
         setChannel(gameChannel)
-    }
-
-    function handleReceived(data) {
-
+        cableContext.cable.subscriptions.create({
+            channel: 'MessageChannel',
+            game_id: id
+        },
+        {
+            received: ({ message }) => setHeadline(message)
+        })
+        const timerChannel = cableContext.cable.subscriptions.create({
+            channel: 'TimerChannel',
+            game_id: id
+        },
+        {
+            received: ({ timer_count }) => setTimer(timer_count)
+        })
+        if (isNew) {
+            timerChannel.send({id: userContext.user.id})
+        }
     }
 
     useEffect(() => {
         if (gameContext.game) {
-            subscribeToGameChannel(gameContext.game.id)
+            subscribeToChannels(gameContext.game.id, true)
         } else {
             fetch('/current-game')
             .then(r => {
                 if (r.ok) {
                     r.json().then(game => {
                         gameContext.setGame(game)
-                        subscribeToGameChannel(game.id)
+                        subscribeToChannels(game.id, false)
                     })
                 } else {
                     history.goBack()

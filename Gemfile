@@ -57,3 +57,5 @@ gem "figaro"
 gem "rest-client", "~> 2.1"
 
 gem "faker", "~> 2.19"
+
+gem "async"

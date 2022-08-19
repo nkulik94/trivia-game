@@ -71,6 +71,10 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    async (1.30.3)
+      console (~> 1.10)
+      nio4r (~> 2.3)
+      timers (~> 4.1)
     bcrypt (3.1.18)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
@@ -79,6 +83,8 @@ GEM
     case_transform (0.2)
       activesupport
     concurrent-ruby (1.1.10)
+    console (1.15.3)
+      fiber-local
     crass (1.0.6)
     digest (3.1.0)
     domain_name (0.5.20190701)
@@ -87,6 +93,7 @@ GEM
     faker (2.22.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
+    fiber-local (1.0.0)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
     globalid (1.0.0)
@@ -182,6 +189,7 @@ GEM
     strscan (3.0.4)
     thor (1.2.1)
     timeout (0.3.0)
+    timers (4.3.3)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -198,6 +206,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.13)
+  async
   bcrypt (~> 3.1.7)
   bootsnap
   byebug
