@@ -1,20 +1,12 @@
 import React, { useState } from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import UserGameActions from './UserGameActions';
 import OpponentGameActions from './OpponentGameActions';
 
 function Player({ player, winnings, channel, isUser }) {
-    //const [buzzed, setBuzzed] = useState(false)
-
-    //const buzzer = buzzed ? <RadioButtonCheckedIcon sx={{color: 'red'}} /> : <RadioButtonUncheckedIcon sx={{color: 'red'}} />
 
 
     return (
