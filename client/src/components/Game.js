@@ -18,9 +18,6 @@ function Game() {
     const history = useHistory()
 
     const [channel, setChannel] = useState(null)
-    const [headline, setHeadline] = useState('Starting in...')
-    // const [userReady, setUserReady] = useState(false)
-    // const [opponentReady, setOpponentReady] = useState(false)
     const [timer, setTimer] = useState('')
 
     function subscribeToChannels(id, isNew) {
@@ -29,16 +26,9 @@ function Game() {
             game_id: id
         },
         {
-           received: console.log
+           received: ({ game }) => gameContext.setGame(game)
         })
         setChannel(gameChannel)
-        cableContext.cable.subscriptions.create({
-            channel: 'MessageChannel',
-            game_id: id
-        },
-        {
-            received: ({ message }) => setHeadline(message)
-        })
         const timerChannel = cableContext.cable.subscriptions.create({
             channel: 'TimerChannel',
             game_id: id
@@ -80,7 +70,8 @@ function Game() {
         <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
             <Paper>
                 <Typography variant="h2">{`${gameContext.game.player_1.name} vs ${gameContext.game.player_2.name}`}</Typography>
-                <Typography variant="h4">{headline}</Typography>
+                <Typography variant="h3">Pool: {gameContext.game.pool}</Typography>
+                <Typography variant="h4">{gameContext.game.message}</Typography>
                 <Typography variant="h4">{timer}</Typography>
                 <Grid container >
                     <Grid item xs={3}>

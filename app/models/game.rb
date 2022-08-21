@@ -21,12 +21,20 @@ class Game < ApplicationRecord
         self.questions.find_by(id: question.id) ? self.find_new_question(difficulty) : question
     end
 
+    def broadcast_game
+        serialized_game = ActiveModelSerializers::Adapter::Json.new(
+        GameSerializer.new(self)
+        ).serializable_hash
+        ActionCable.server.broadcast("game_#{self.id}_channel", serialized_game)
+    end
+
     def set_timer value
+        id = self.id
         time = value
         while time >= 0 do
-          ActionCable.server.broadcast("timer_for_#{self.id}_channel", {timer_count: time})
-          time -= 1
-          sleep(1)
+            ActionCable.server.broadcast("timer_for_#{self.id}_channel", {timer_count: time})
+            time -= 1
+            sleep(1)
         end
     end
 end

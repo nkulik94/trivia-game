@@ -10,22 +10,10 @@ class GameChannel < ApplicationCable::Channel
     game.player_1.id === current_user.id ? game.player_2 : game.player_1
   end
 
-  def timer value
-    time = value
-    while time >= 0 do
-      ActionCable.server.broadcast("game_#{params[:game_id]}_channel", {time_remaining: time})
-      time -= 1
-      sleep(1)
-    end
-  end
-
   def subscribed
     game = Game.find(params[:game_id])
     GameChannel.subscribers["#{current_user.id}"] = true
     stream_from "game_#{params[:game_id]}_channel"
-    # if GameChannel.subscribers["#{game.player_1.id}"] && GameChannel.subscribers["#{game.player_2.id}"]
-    #   self.timer 30
-    # end
   end
 
   def receive data
