@@ -14,7 +14,7 @@ class TimerChannel < ApplicationCable::Channel
     game = Game.find(params[:game_id])
     if TimerChannel.subscribers[game.player_1.id] && TimerChannel.subscribers[game.player_2.id]
       game.set_timer(10)
-      game.update(message: "#{game.player_1.name}'s turn")
+      game.update(message: "#{game.player_1.name}'s turn", awaiting_form: true)
       game.broadcast_game
       thr = Thread.new do
         game.start_turn thr

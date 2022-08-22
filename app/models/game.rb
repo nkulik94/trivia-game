@@ -3,6 +3,8 @@ class Game < ApplicationRecord
     belongs_to :player_2, class_name: 'User', foreign_key: :player_2_id
     has_and_belongs_to_many :questions
 
+    validates :current_stakes, numericality: { :greater_than => 0 }, if: :current_stakes
+
     @@kill_thread = {}
 
     def self.kill_thread
@@ -50,11 +52,11 @@ class Game < ApplicationRecord
     end
 
     def start_turn thread
-        set_timer(5, thread)
-        self.update(message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn)
+        set_timer(15, thread)
+        self.update(message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn, awaiting_form: false)
         self.broadcast_game
         sleep(2)
-        self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name}'s turn")
+        self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name}'s turn", awaiting_form: true)
         self.broadcast_game
         start_turn(thread)
     end

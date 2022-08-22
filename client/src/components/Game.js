@@ -67,30 +67,6 @@ function Game() {
     if (!gameContext.game) return <div></div>
     if (!userContext.user) return <div></div>
 
-    function testRoute() {
-        const body = {
-            current_stakes: 10,
-            difficulty: 'easy'
-        }
-        const config = {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(body)
-        }
-        fetch(`/games/${gameContext.game.id}`, config)
-            .then(r => {
-                if (r.ok) {
-                    console.log('great')
-                }
-            })
-    }
-
-    console.log(gameContext.game)
-
-    //const playerTurn = gameContext.game.player_1_turn ? gameContext.game.player_1 : gameContext.game.player_2
-
     return (
         <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
             <Paper>
@@ -105,6 +81,7 @@ function Game() {
                             winnings={gameContext.game.player_1_winnings}
                             channel={channel}
                             isUser={gameContext.game.player_1.id === userContext.user.id}
+                            isTurn={gameContext.game.player_1_turn}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -116,10 +93,10 @@ function Game() {
                             winnings={gameContext.game.player_2_winnings}
                             channel={channel}
                             isUser={gameContext.game.player_2.id === userContext.user.id}
+                            isTurn={!gameContext.game.player_1_turn}
                         />
                     </Grid>
                 </Grid>
-                <button onClick={testRoute}>test</button>
             </Paper>
         </Container>
     )

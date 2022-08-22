@@ -1,5 +1,5 @@
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :stakes, :player_1_winnings, :player_2_winnings, :pool, :buzzed_by_id, :player_1_turn, :message, :current_question
+  attributes :id, :stakes, :player_1_winnings, :player_2_winnings, :pool, :buzzed_by_id, :player_1_turn, :message, :current_question, :awaiting_form
 
   def current_question
     self.object.questions.last
