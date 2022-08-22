@@ -16,6 +16,19 @@ class GamesController < ApplicationController
         render json: game, status: :created
     end
 
+    def update
+        game = Game.find(params[:id])
+        return render json: { error: "Not enough points in the pool!" }, status: :unprocessable_entity if params[:current_stakes] > game.pool
+        Game.kill_thread[game.id] = true
+        game.update(message: "#{game.player_1_turn ? game.player_1.name : game.player_2.name} has chosen a#{params[:difficulty] === 'easy' ? 'n' : nil} #{params[:difficulty]} question", current_stakes: params[:current_stakes])
+        game.broadcast_game
+        sleep(1)
+        Game.kill_thread[game.id] = false
+        game.update(message: "#{game.player_1_turn ? game.player_1.name : game.player_2.name} has set the stakes at #{params[:current_stakes]} points")
+        game.broadcast_game
+        head :accepted
+    end
+
     private
 
     def render_not_found_response

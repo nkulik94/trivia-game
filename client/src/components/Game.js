@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Player from "./Player";
 import GameBoard from "./GameBoard";
+import ErrorMsg from "./ErrorMsg";
 
 
 function Game() {
@@ -18,9 +19,23 @@ function Game() {
     const history = useHistory()
 
     const [channel, setChannel] = useState(null)
+    const [timerChannel, setTimerChannel] = useState(null)
     const [timer, setTimer] = useState('')
 
     function subscribeToChannels(id, isNew) {
+        if (!timerChannel) {
+            const newTimerChannel = cableContext.cable.subscriptions.create({
+                channel: 'TimerChannel',
+                game_id: id
+            },
+            {
+                received: ({ timer_count }) => setTimer(timer_count)
+            })
+            if (isNew) {
+                newTimerChannel.send({id: userContext.user.id})
+            }
+            setTimerChannel(newTimerChannel)
+        }
         const gameChannel = cableContext.cable.subscriptions.create({
             channel: "GameChannel",
             game_id: id
@@ -29,16 +44,6 @@ function Game() {
            received: ({ game }) => gameContext.setGame(game)
         })
         setChannel(gameChannel)
-        const timerChannel = cableContext.cable.subscriptions.create({
-            channel: 'TimerChannel',
-            game_id: id
-        },
-        {
-            received: ({ timer_count }) => setTimer(timer_count)
-        })
-        if (isNew) {
-            timerChannel.send({id: userContext.user.id})
-        }
     }
 
     useEffect(() => {
@@ -53,7 +58,7 @@ function Game() {
                         subscribeToChannels(game.id, false)
                     })
                 } else {
-                    history.goBack()
+                    history.push('/dashboard')
                 }
             })
         }
@@ -62,9 +67,29 @@ function Game() {
     if (!gameContext.game) return <div></div>
     if (!userContext.user) return <div></div>
 
-    //console.log(gameContext.game)
+    function testRoute() {
+        const body = {
+            current_stakes: 10,
+            difficulty: 'easy'
+        }
+        const config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        fetch(`/games/${gameContext.game.id}`, config)
+            .then(r => {
+                if (r.ok) {
+                    console.log('great')
+                }
+            })
+    }
 
-    const playerTurn = gameContext.game.player_1_turn ? gameContext.game.player_1 : gameContext.game.player_2
+    console.log(gameContext.game)
+
+    //const playerTurn = gameContext.game.player_1_turn ? gameContext.game.player_1 : gameContext.game.player_2
 
     return (
         <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
@@ -94,6 +119,7 @@ function Game() {
                         />
                     </Grid>
                 </Grid>
+                <button onClick={testRoute}>test</button>
             </Paper>
         </Container>
     )

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link as RouterLink} from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { UserContext } from '../context/user'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +14,7 @@ import ErrorMsg from './ErrorMsg';
 
 function SignUp() {
   const userContext = useContext(UserContext)
+  const history = useHistory()
 
   const [formData, setFormData] = useState({
       name: '',
@@ -54,6 +55,7 @@ function SignUp() {
               password_confirmation: ''
             })
             userContext.setUser(user)
+            history.push('/dashboard')
           })
         } else {
           r.json().then(({ errors }) => handleError(errors))

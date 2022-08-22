@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -14,6 +14,7 @@ import ErrorMsg from './ErrorMsg';
 
 function SignIn() {
   const userContext = useContext(UserContext)
+  const history = useHistory()
 
   const [formData, setFormData] = useState({
     email: '',
@@ -46,7 +47,10 @@ function SignIn() {
             email: '',
             password: ''
           })
-          r.json().then(userContext.setUser)
+          r.json().then(user => {
+            userContext.setUser(user)
+            history.push('/dashboard')
+          })
         } else {
           r.json().then(handleError)
         }

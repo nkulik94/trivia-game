@@ -39,9 +39,9 @@ class Game < ApplicationRecord
         #thread = Thread.new do
         while time >= 0 do
             if !Game.kill_thread[self.id]
-            ActionCable.server.broadcast("timer_for_#{self.id}_channel", {timer_count: time})
-            time -= 1
-            sleep(1)
+                ActionCable.server.broadcast("timer_for_#{self.id}_channel", {timer_count: time})
+                time -= 1
+                sleep(1)
             else
                 thread.kill if thread
             end
