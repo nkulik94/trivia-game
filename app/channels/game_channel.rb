@@ -10,11 +10,6 @@ class GameChannel < ApplicationCable::Channel
     @@threads
   end
 
-  def opponent
-    game = Game.find(params[:game_id])
-    game.player_1.id === current_user.id ? game.player_2 : game.player_1
-  end
-
   def subscribed
     game = Game.find(params[:game_id])
     GameChannel.subscribers["#{current_user.id}"] = true
@@ -23,9 +18,9 @@ class GameChannel < ApplicationCable::Channel
 
   def receive data
     game = Game.find(params[:game_id])
-    if data['kill']
-      Game.kill_thread[game.id] = true
-    end
+    # if data['kill']
+    #   Game.kill_thread[game.id] = true
+    # end
   end
 
   def unsubscribed

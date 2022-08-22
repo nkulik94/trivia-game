@@ -35,4 +35,10 @@ class Question < ApplicationRecord
         difficulties = ['easy', 'medium', 'hard']
         difficulties.each { |difficulty| self.get_and_save_questions(token, difficulty) }
     end
+
+    def serialize
+        ActiveModelSerializers::Adapter::Json.new(
+        QuestionSerializer.new(self)
+        ).serializable_hash
+    end
 end

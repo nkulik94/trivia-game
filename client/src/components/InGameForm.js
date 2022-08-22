@@ -32,18 +32,20 @@ function InGameForm({ id, setOpen }) {
             },
             body: JSON.stringify(formData)
         }
+        setOpen(false)
         fetch(`/games/${id}`, config)
             .then(r => {
-                if (r.ok) {
-                    setOpen(false)
-                } else {
-                    r.json().then(({ errors }) => handleErrors(errors))
+                if (!r.ok) {
+                    r.json().then(({ errors }) => {
+                        handleErrors(errors)
+                        setOpen(true)
+                    })
                 }
             })
     }
 
     return (
-        <Box component='form' onSubmit={handleSubmit}>
+        <Box component='form' onSubmit={handleSubmit} sx={{padding: '2rem'}}>
             <FormControl>
                 <FormLabel>Select stakes and difficulty</FormLabel>
                 <RadioGroup row>

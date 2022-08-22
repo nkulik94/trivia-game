@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { GameContext } from "../context/game";
 import { UserContext } from "../context/user";
-import CardActions from '@mui/material/CardActions';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import IconButton from '@mui/material/IconButton';
@@ -22,15 +21,16 @@ function UserGameActions({ channel, isTurn }) {
     }
 
     return (
-        <CardActions>
+        <>
             <Button onClick={() => setOpen(true)} disabled={!gameContext.game.awaiting_form || !isTurn}>Choose Stakes And Difficulty</Button>
-            <Dialog open={open}>
-                <InGameForm id={gameContext.game.id} setOpen={setOpen} />
-            </Dialog>
+            <br/>
             <IconButton>
                 {buzzer}
             </IconButton>
-        </CardActions>
+            <Dialog open={open}>
+                <InGameForm id={gameContext.game.id} setOpen={setOpen} />
+            </Dialog>
+        </>
     )
 }
 

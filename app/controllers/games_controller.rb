@@ -20,13 +20,7 @@ class GamesController < ApplicationController
         game = Game.find(params[:id])
         return render json: { errors: ["Not enough points in the pool!"] }, status: :unprocessable_entity if params[:current_stakes] > game.pool
         return render json: { errors: ["Too late!"] }, status: :unprocessable_entity unless game.awaiting_form
-        Game.kill_thread[game.id] = true
-        game.update(message: "#{game.player_1_turn ? game.player_1.name : game.player_2.name} has chosen a#{params[:difficulty] === 'easy' ? 'n' : nil} #{params[:difficulty]} question", current_stakes: params[:current_stakes], awaiting_form: false)
-        game.broadcast_game
-        sleep(1)
-        Game.kill_thread[game.id] = false
-        game.update(message: "#{game.player_1_turn ? game.player_1.name : game.player_2.name} has set the stakes at #{params[:current_stakes]} points")
-        game.broadcast_game
+        game.handle_form(params)
         head :ok
     end
 

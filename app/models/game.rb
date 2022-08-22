@@ -15,21 +15,14 @@ class Game < ApplicationRecord
         self.pool == 0
     end
 
-    def get_question difficulty
-        question = self.find_new_question(difficulty)
-        self.questions << question
-        serialized_question = ActiveModelSerializers::Adapter::Json.new(
-        QuestionSerializer.new(question)
-        ).serializable_hash
-        serialized_question
-    end
-
     def find_new_question difficulty
-        question = Question.where(difficulty).sample
-        self.questions.find_by(id: question.id) ? self.find_new_question(difficulty) : question
+        question = Question.where(difficulty: difficulty).sample
+        self.questions.find_by(id: question.id) ? self.find_new_question(difficulty: difficulty) : question
+        self.questions << question
+        question
     end
 
-    def broadcast_game
+    def broadcast
         serialized_game = ActiveModelSerializers::Adapter::Json.new(
         GameSerializer.new(self)
         ).serializable_hash
@@ -38,7 +31,6 @@ class Game < ApplicationRecord
 
     def set_timer value, thread = false
         time = value
-        #thread = Thread.new do
         while time >= 0 do
             if !Game.kill_thread[self.id]
                 ActionCable.server.broadcast("timer_for_#{self.id}_channel", {timer_count: time})
@@ -48,16 +40,33 @@ class Game < ApplicationRecord
                 thread.kill if thread
             end
         end
-        #end
+        thread.kill if thread && Game.kill_thread[self.id]
     end
 
     def start_turn thread
         set_timer(15, thread)
         self.update(message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn, awaiting_form: false)
-        self.broadcast_game
+        self.broadcast
         sleep(2)
         self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name}'s turn", awaiting_form: true)
-        self.broadcast_game
+        self.broadcast
         start_turn(thread)
+    end
+
+    def handle_form params
+        Game.kill_thread[self.id] = true
+        self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name} has chosen a#{params[:difficulty] === 'easy' ? 'n' : nil} #{params[:difficulty]} question", current_stakes: params[:current_stakes], awaiting_form: false)
+        self.broadcast
+        sleep(2)
+        Game.kill_thread[self.id] = false
+        self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name} has set the stakes at #{params[:current_stakes]} points")
+        self.broadcast
+        sleep(2)
+        question = self.find_new_question(params[:difficulty])
+        self.update(message: "Get those buzzers ready, here's the question")
+        self.broadcast
+        sleep(1)
+        self.update(current_question_id: question.id)
+        self.broadcast
     end
 end

@@ -67,6 +67,8 @@ function Game() {
     if (!gameContext.game) return <div></div>
     if (!userContext.user) return <div></div>
 
+    console.log(gameContext.game.current_question)
+
     return (
         <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
             <Paper>
