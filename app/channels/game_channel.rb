@@ -1,8 +1,13 @@
 class GameChannel < ApplicationCable::Channel
   @@subscribers = {}
+  @@threads = {}
 
   def self.subscribers
     @@subscribers
+  end
+
+  def self.threads
+    @@threads
   end
 
   def opponent
@@ -18,9 +23,8 @@ class GameChannel < ApplicationCable::Channel
 
   def receive data
     game = Game.find(params[:game_id])
-    if data['difficulty']
-      question = game.get_question(difficulty: data['difficulty'])
-      ActionCable.server.broadcast("game_#{params[:game_id]}_channel", question)
+    if data['kill']
+      Game.kill_thread[game.id] = true
     end
   end
 
