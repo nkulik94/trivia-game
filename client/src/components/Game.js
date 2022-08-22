@@ -67,7 +67,7 @@ function Game() {
     if (!gameContext.game) return <div></div>
     if (!userContext.user) return <div></div>
 
-    console.log(gameContext.game.current_question)
+    //console.log(gameContext.game.current_question)
 
     return (
         <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
@@ -87,7 +87,7 @@ function Game() {
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <GameBoard />
+                        <GameBoard question={gameContext.game.current_question} />
                     </Grid>
                     <Grid item xs={3}>
                         <Player

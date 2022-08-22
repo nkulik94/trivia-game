@@ -37,8 +37,9 @@ class Question < ApplicationRecord
     end
 
     def serialize
-        ActiveModelSerializers::Adapter::Json.new(
+        serialized_question = ActiveModelSerializers::Adapter::Json.new(
         QuestionSerializer.new(self)
         ).serializable_hash
+        serialized_question[:question]
     end
 end

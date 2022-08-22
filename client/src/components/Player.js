@@ -6,7 +6,6 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import UserGameActions from './UserGameActions';
 import OpponentGameActions from './OpponentGameActions';
-import InGameForm from './InGameForm';
 
 function Player({ player, winnings, channel, isUser, isTurn }) {
     const gameContext = useContext(GameContext)
