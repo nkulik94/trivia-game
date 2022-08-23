@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_22_211020) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_23_114613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_211020) do
     t.integer "current_stakes"
     t.boolean "awaiting_form", default: false
     t.integer "current_question_id"
+    t.string "current_answer"
   end
 
   create_table "games_questions", id: false, force: :cascade do |t|

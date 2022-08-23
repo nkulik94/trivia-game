@@ -14,7 +14,7 @@ function Question({ question }) {
                 {question.category}
             </Typography>
             <Grid container>
-                <Grid item xs={12}>
+                <Grid item xs={12} sx={{marginBottom: '1rem'}}>
                     <Paper sx={{padding: '1rem'}}>
                         {question.question}
                     </Paper>

@@ -69,4 +69,8 @@ class Game < ApplicationRecord
         self.update(current_question_id: question.id)
         self.broadcast
     end
+
+    def reset
+        self.update(current_answer: nil, buzzed_by_id: nil, current_stakes: nil, current_question_id: nil)
+    end
 end
