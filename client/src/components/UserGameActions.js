@@ -24,7 +24,7 @@ function UserGameActions({ channel, isTurn }) {
         <>
             <Button onClick={() => setOpen(true)} disabled={!gameContext.game.awaiting_form || !isTurn}>Choose Stakes And Difficulty</Button>
             <br/>
-            <IconButton disabled={!gameContext.game.awaiting_buzzer}>
+            <IconButton disabled={!gameContext.game.current_question || gameContext.game.buzzed_by_id}>
                 {buzzer}
             </IconButton>
             <Dialog open={open}>
