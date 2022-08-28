@@ -66,11 +66,25 @@ class Game < ApplicationRecord
         self.update(message: "Get those buzzers ready, here's the question")
         self.broadcast
         sleep(1)
-        self.update(current_question_id: question.id)
+        self.update(current_question_id: question.id, awaiting_buzzer: true)
         self.broadcast
+        self.buzzer_timer
+    end
+
+    def buzzer_timer
+        thread = Thread.new do
+            set_timer(10, thread)
+            self.reset
+            self.update(message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn, awaiting_form: false)
+            self.broadcast
+            sleep(2)
+            self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name}'s turn", awaiting_form: true)
+            self.broadcast
+            start_turn(thread)
+        end
     end
 
     def reset
-        self.update(current_answer: nil, buzzed_by_id: nil, current_stakes: nil, current_question_id: nil)
+        self.update(current_answer: nil, buzzed_by_id: nil, current_stakes: nil, current_question_id: nil, awaiting_buzzer: false)
     end
 end
