@@ -37,11 +37,10 @@ class Game < ApplicationRecord
             sleep(1)
             thread.kill if thread && Game.kill_thread[self.id]
         end
-        #thread.kill if thread && Game.kill_thread[self.id]
     end
 
     def start_turn thread
-        set_timer(15, thread)
+        set_timer(45, thread)
         self.update(message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn, awaiting_form: false)
         self.broadcast
         sleep(2)

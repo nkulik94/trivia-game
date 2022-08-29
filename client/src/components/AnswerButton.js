@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { GameContext } from "../context/game";
 import { UserContext } from "../context/user";
 import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
 
 function AnswerButton({ answer, channel }) {
     let background = '#191970';

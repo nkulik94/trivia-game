@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Player from "./Player";
 import GameBoard from "./GameBoard";
 import ErrorMsg from "./ErrorMsg";
+import GameOver from "./GameOver";
 
 
 function Game() {
@@ -99,6 +100,7 @@ function Game() {
                         />
                     </Grid>
                 </Grid>
+                <GameOver />
             </Paper>
         </Container>
     )

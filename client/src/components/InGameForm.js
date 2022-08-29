@@ -19,7 +19,7 @@ function InGameForm({ id, setOpen }) {
     }
 
     function handleErrors(errors) {
-        setErrors(errors.map(error => <ErrorMsg error={error} key={error}/>))
+        setErrors(errors)
         setTimeout(() => setErrors(null), 3000)
     }
 
@@ -37,8 +37,8 @@ function InGameForm({ id, setOpen }) {
             .then(r => {
                 if (!r.ok) {
                     r.json().then(({ errors }) => {
-                        handleErrors(errors)
                         setOpen(true)
+                        handleErrors(errors)
                     })
                 }
             })
@@ -71,13 +71,14 @@ function InGameForm({ id, setOpen }) {
                 required
                 label='Set Stakes'
                 name='stakes'
+                type="number"
                 value={formData.current_stakes}
                 onChange={e => setFormData({...formData, current_stakes: parseInt(e.target.value, 10)})}
                 />
                 <br/>
+                {errors ? errors.map(error => <ErrorMsg error={error} key={error} />) : null}
                 <br/>
                 <Button type='submit' variant='contained'>Start Round</Button>
-                {errors ? errors : null}
             </FormControl>
         </Box>
     )
