@@ -110,8 +110,20 @@ class Game < ApplicationRecord
                 winnings = data['id'] == self.buzzed_by_id ? self.current_stakes : self.current_stakes / 2
                 self.update(message: "#{self.get_player(data['id']).name} is correct! #{self.get_player(data['id']).name} has won #{winnings} points!")
                 self.broadcast
-                sleep(1.1)
+                sleep(2)
                 self.handle_thread
+                self.handle_winnings(data['id'], winnings)
+                return thread = Thread.new { self.reset(thread, "Next player's turn!") } unless self.over?
+            else
+                self.update(message: "Sorry, incorrect")
+                self.broadcast
+                sleep(2)
+                self.handle_thread
+                return thread = Thread.new { self.reset(thread, "Next player's turn!") } unless data['id'] == self.buzzed_by_id
+                self.update(message: "#{data['id'] == self.user_id ? self.player_2.name : self.player_1.name} will have a chance now!")
+                self.broadcast
+                set_timer(10, thread)
+                self.reset(thread)
             end
         end
     end
@@ -124,8 +136,8 @@ class Game < ApplicationRecord
         Game.kill_thread[self.id] = !Game.kill_thread[self.id]
     end
 
-    def reset thread
-        self.update(current_answer: nil, buzzed_by_id: nil, current_stakes: nil, current_question_id: nil, message: "Time's up, next player's turn!", player_1_turn: !self.player_1_turn, awaiting_form: false)
+    def reset thread, message = "Time's up, next player's turn!"
+        self.update(current_answer: nil, buzzed_by_id: nil, current_stakes: nil, current_question_id: nil, message: message, player_1_turn: !self.player_1_turn, awaiting_form: false)
         self.broadcast
         sleep(2)
         self.update(message: "#{self.player_1_turn ? self.player_1.name : self.player_2.name}'s turn", awaiting_form: true)
