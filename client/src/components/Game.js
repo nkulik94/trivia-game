@@ -87,7 +87,7 @@ function Game() {
                         />
                     </Grid>
                     <Grid item xs={6}>
-                        <GameBoard question={gameContext.game.current_question} />
+                        <GameBoard channel={channel} question={gameContext.game.current_question} />
                     </Grid>
                     <Grid item xs={3}>
                         <Player

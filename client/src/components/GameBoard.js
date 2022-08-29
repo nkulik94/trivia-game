@@ -2,10 +2,10 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import Question from './Question';
 
-function GameBoard({ question }){
+function GameBoard({ question, channel }){
     return (
         <Card sx={{backgroundColor: 'black', height: '100%'}}>
-            { question ? <Question question={question} /> : null }
+            { question ? <Question channel={channel} question={question} /> : null }
         </Card>
     )
 }

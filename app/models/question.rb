@@ -12,12 +12,13 @@ class Question < ApplicationRecord
             questions_json = RestClient.get "https://opentdb.com/api.php?amount=50&difficulty=#{difficulty}&type=multiple&token=#{token}"
             questions = JSON.parse(questions_json)
             questions['results'].each do |question|
+                all_answers = question['incorrect_answers'] + [correct_answer: question['correct_answer']]
                 new_question = create({
                     category: question['category'],
                     difficulty: question["difficulty"],
                     question: question['question'],
                     correct_answer: question['correct_answer'],
-                    incorrect_answers: question['incorrect_answers'].join('|')
+                    all_answers_string: all_answers.shuffle.join('|')
                 })
                 new_question.question['&quot;'] = "\"" until !new_question.question['&quot;']
                 new_question.question['&#039;'] = "\'" until !new_question.question['&#039;']

@@ -72,18 +72,18 @@ class Game < ApplicationRecord
     end
 
     def current_question
-        Question.find(self.current_question_id)
+        self.questions.find_by(id: self.current_question_id)
     end
 
     def handle_buzzed id
         self.handle_thread
         #name = self.user_id == id ? self.player_1.name : self.player_2.name
         opponent_name = self.user_id == id ? self.player_2.name : self.player_1.name
-        self.update(message: "#{self.get_player(id).name} is ready to answer!")
+        self.update(message: "#{self.get_player(id).name} is ready to answer!", buzzed_by_id: id)
         self.broadcast
         sleep(1.05)
         self.handle_thread
-        self.update(buzzed_by_id: id, message: "#{self.get_player(id).name} must answer before the countdown clock hits 0")
+        self.update(message: "#{self.get_player(id).name} must answer before the countdown clock hits 0")
         self.broadcast
         thread = Thread.new do
             set_timer(10, thread)
@@ -106,24 +106,28 @@ class Game < ApplicationRecord
     def handle_answer data
         if answering_user_verified?(data['id'])
             self.handle_thread
+            self.update(current_answer: data['answer'])
+            self.broadcast
+            sleep(2)
+            self.handle_thread
             if self.current_question.is_correct_answer?(data['answer'])
                 winnings = data['id'] == self.buzzed_by_id ? self.current_stakes : self.current_stakes / 2
                 self.update(message: "#{self.get_player(data['id']).name} is correct! #{self.get_player(data['id']).name} has won #{winnings} points!")
                 self.broadcast
                 sleep(2)
-                self.handle_thread
                 self.handle_winnings(data['id'], winnings)
                 return thread = Thread.new { self.reset(thread, "Next player's turn!") } unless self.over?
             else
                 self.update(message: "Sorry, incorrect")
                 self.broadcast
                 sleep(2)
-                self.handle_thread
                 return thread = Thread.new { self.reset(thread, "Next player's turn!") } unless data['id'] == self.buzzed_by_id
                 self.update(message: "#{data['id'] == self.user_id ? self.player_2.name : self.player_1.name} will have a chance now!")
                 self.broadcast
-                set_timer(10, thread)
-                self.reset(thread)
+                thread = Thread.new do
+                    set_timer(10, thread)
+                    self.reset(thread)
+                end
             end
         end
     end

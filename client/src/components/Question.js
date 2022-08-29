@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AnswerButton from './AnswerButton';
 
-function Question({ question }) {
+function Question({ question, channel }) {
     return (
         <CardContent sx={{textAlign: 'center'}}>
             <Typography variant='h6'>
@@ -22,7 +22,7 @@ function Question({ question }) {
                 {question.all_answers.map(answer => {
                     return (
                         <Grid item xs={6} key={answer}>
-                            <AnswerButton answer={answer}/>
+                            <AnswerButton channel={channel} answer={answer}/>
                         </Grid>
                     )
                 })}
