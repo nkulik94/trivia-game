@@ -28,13 +28,16 @@ end
 
 User.create(user_info) until User.count == 10
 
+User.create(name: 'Naftali', username: 'nkulik', email: 'nkulik1994@gmail.com', password: 'nkulik', points: 500, avatar_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/149.png')
+User.create(name: 'joe', username: 'joe', email: 'joe@joe.com', password: 'joe', points: 500, avatar_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/249.png')
+
 def random_boolean?
     rand(1..2) == 1
 end
 
 User.all.each do |user|
     if random_boolean?
-        user.create_challenge(stakes: 100)
+        user.create_challenge(stakes: 100) unless user.username == 'nkulik' || user.username == 'joe'
     end
 end
 
