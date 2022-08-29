@@ -76,7 +76,6 @@ class Game < ApplicationRecord
 
     def handle_buzzed id
         self.handle_thread
-        #name = self.user_id == id ? self.player_1.name : self.player_2.name
         opponent_name = self.user_id == id ? self.player_2.name : self.player_1.name
         self.update(message: "#{self.get_player(id).name} is ready to answer!", buzzed_by_id: id)
         self.broadcast
@@ -116,6 +115,7 @@ class Game < ApplicationRecord
                 sleep(2)
                 self.handle_winnings(data['id'], winnings)
                 return thread = Thread.new { self.reset(thread, "Next player's turn!") } unless self.over?
+                self.end_game
             else
                 self.update(message: "Sorry, incorrect")
                 self.broadcast
@@ -137,6 +137,19 @@ class Game < ApplicationRecord
 
     def handle_thread
         Game.kill_thread[self.id] = !Game.kill_thread[self.id]
+    end
+
+    def end_game
+        if self.player_1_winnings == self.player_2_winnings
+            self.update(message: 'This game has ended in a tie!')
+            self.broadcast
+        else
+            self.player_1.update(points: self.player_1.points - self.stakes + self.player_1_winnings)
+            self.player_2.update(points: self.player_2.points - self.stakes + self.player_2_winnings)
+            winner = self.player_1_winnings > self.player_2_winnings ? self.player_1.name : self.player_2.name
+            self.update(message: "Congratulations to the winner, #{winner}!")
+            self.broadcast
+        end
     end
 
     def reset thread, message = "Time's up, next player's turn!"
