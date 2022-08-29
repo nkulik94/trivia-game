@@ -42,4 +42,8 @@ class Question < ApplicationRecord
         ).serializable_hash
         serialized_question[:question]
     end
+
+    def is_correct_answer? answer
+        answer == self.correct_answer
+    end
 end

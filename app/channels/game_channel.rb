@@ -18,9 +18,13 @@ class GameChannel < ApplicationCable::Channel
 
   def receive data
     game = Game.find(params[:game_id])
-    # if data['kill']
-    #   Game.kill_thread[game.id] = true
-    # end
+    if data['buzzed_by'] && !game.buzzed_by_id
+      id = data['buzzed_by']
+      game.handle_buzzed(id)
+    end
+    if data['answer']
+      game.handle_answer(data)
+    end
   end
 
   def unsubscribed
