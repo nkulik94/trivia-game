@@ -44,15 +44,13 @@ function ChallengeList({ button }) {
     }
 
     return (
-        <Container sx={{width: '100%'}}>
-            <Paper sx={{textAlign: 'center', overflow: 'auto', width: '100%'}}>
-                {button}
-                <Typography variant='h4'>Available Challenges</Typography>
-                <List sx={{maxHeight: 300}}>
-                    {challenges.map(challenge => <Challenge key={challenge.id} challenge={challenge} />)}
-                </List>
-            </Paper>
-        </Container>
+        <Paper sx={{textAlign: 'center', overflow: 'auto', width: '100%'}}>
+            {button}
+            <Typography variant='h4'>Available Challenges</Typography>
+            <List sx={{maxHeight: 300}}>
+                {challenges.map(challenge => <Challenge key={challenge.id} challenge={challenge} />)}
+            </List>
+        </Paper>
     )
 }
 

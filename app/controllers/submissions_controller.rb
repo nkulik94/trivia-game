@@ -13,7 +13,7 @@ class SubmissionsController < ApplicationController
     end
 
     def update
-        submission = Submission.find([params[:id]])
+        submission = Submission.find(params[:id])
         return render json: { errors: ["You can't edit a submission that's already been reviewed!"] }, status: :unprocessable_entity if submission.reviewed
         submission.update!(submission_params)
         render json: submission, status: :accepted
@@ -28,7 +28,7 @@ class SubmissionsController < ApplicationController
     private
 
     def submission_params
-        params.params(:question, :answer)
+        params.permit(:question, :answer)
     end
 
     def render_unprocessable_entity_response(invalid)

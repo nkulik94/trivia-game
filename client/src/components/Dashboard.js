@@ -6,6 +6,7 @@ import ChallengeHandler from "./ChallengeHandler";
 import Grid from "@mui/material/Grid";
 import Profile from "./Profile";
 import Typography from "@mui/material/Typography";
+import SubmissionList from "./SubmissionList";
 
 function Dashboard() {
     const userContext = useContext(UserContext)
@@ -21,12 +22,15 @@ function Dashboard() {
     if (!userContext.user) return <div></div>
 
     return (
-        <Grid container sx={{width: '80%', margin: 'auto'}} spacing={1}>
+        <Grid container sx={{width: '80%', margin: 'auto'}} spacing={2}>
             <Grid item xs={12}>
                 <Profile />
             </Grid>
             <Grid item xs={6}>
                 <ChallengeHandler />
+            </Grid>
+            <Grid item xs={6}>
+                <SubmissionList questions={userContext.user.submissions}/>
             </Grid>
         </Grid>
     )
