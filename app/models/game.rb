@@ -146,7 +146,15 @@ class Game < ApplicationRecord
         else
             self.player_1.update(points: self.player_1.points - self.stakes + self.player_1_winnings)
             self.player_2.update(points: self.player_2.points - self.stakes + self.player_2_winnings)
-            winner = self.player_1_winnings > self.player_2_winnings ? self.player_1.name : self.player_2.name
+            if self.player_1_winnings > self.player_2_winnings
+                self.player_1.update(wins: self.player_1.wins + 1)
+                self.player_2.update(losses: self.player_2.losses + 1)
+                winner = self.player_1.name
+            else
+                self.player_2.update(wins: self.player_2.wins + 1)
+                self.player_1.update(losses: self.player_1.losses + 1)
+                winner = self.player_2.name
+            end
             self.update(message: "Congratulations to the winner, #{winner}!")
             self.broadcast
         end
