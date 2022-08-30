@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
+  resources :submissions
   resources :questions
-  resources :games, only: [:show, :create, :update, :destroy]
-  resources :challenges, only: [:index, :create, :update, :destroy]
+  resources :games, only: [:show, :create, :update]
+  resources :challenges, only: [:index, :create, :destroy]
 
   post "/signup", to: "users#create"
 
   get "/me", to: "users#show"
+
+  patch "/users/:id", to: "users#update"
 
   post "/login", to: "sessions#create"
 

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
     has_many :games
+    has_many :submissions
     has_one :challenge
 
     validates :name, presence: true

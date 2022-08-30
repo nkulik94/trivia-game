@@ -13,10 +13,11 @@ function ChallengeForm({ handleChallenge, button }) {
     }
 
     return (
-        <Box sx={{textAlign: 'center', width: '100%'}}>
+        <Box sx={{textAlign: 'center'}}>
             {button}
             <Typography variant='h5' sx={{paddingTop: '2%'}}>Initiate a Challenge</Typography>
             <Box component='form' sx={{
+                width: '100%',
                 margin: 'auto',
                 paddingTop: '20%',
                 paddingBottom: '30%',

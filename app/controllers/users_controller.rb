@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
     def create
         user = User.create!(user_params)
+        user.update(avatar_url: Faker::Avatar.image) unless params[:avatar_url]
         user.update(points: 500)
         session[:user_id] = user.id
         render json: user, status: :created
@@ -17,10 +18,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def update
+        user = User.find(params[:id])
+        user.update!(user_params)
+        render json: user, status: :accepted
+    end
+
     private
 
     def user_params
-        params.permit(:name, :username, :email, :password, :password_confirmation)
+        params.permit(:name, :username, :email, :password, :password_confirmation, :avatar_url)
     end
 
     def render_not_found_response

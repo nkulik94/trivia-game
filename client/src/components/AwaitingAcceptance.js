@@ -6,10 +6,10 @@ import Box from '@mui/material/Box';
 function AwaitingAcceptance({ handleCancel }) {
     return (
         <Box sx={{
-            width: '60%',
+            maxWidth: 250,
             margin: 'auto',
-            // paddingTop: '30%',
-            // paddingBottom: '30%',
+            paddingTop: '20%',
+            paddingBottom: '20%',
             textAlign: 'center'
         }}
         >
