@@ -34,9 +34,18 @@ function ChallengeList({ button }) {
         setNewChallenge(null)
     }
 
+    if (challenges.length === 0) {
+        return (
+            <>
+            <Typography variant="h4">No challenges available</Typography>
+            {button}
+            </>
+        )
+    }
+
     return (
-        <Container maxWidth='xs'>
-            <Paper sx={{textAlign: 'center', overflow: 'auto'}}>
+        <Container sx={{width: '100%'}}>
+            <Paper sx={{textAlign: 'center', overflow: 'auto', width: '100%'}}>
                 {button}
                 <Typography variant='h4'>Available Challenges</Typography>
                 <List sx={{maxHeight: 300}}>

@@ -3,6 +3,9 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/user";
 import { GameContext } from "../context/game";
 import ChallengeHandler from "./ChallengeHandler";
+import Grid from "@mui/material/Grid";
+import Profile from "./Profile";
+import Typography from "@mui/material/Typography";
 
 function Dashboard() {
     const userContext = useContext(UserContext)
@@ -18,7 +21,14 @@ function Dashboard() {
     if (!userContext.user) return <div></div>
 
     return (
-        <ChallengeHandler />
+        <Grid container sx={{width: '80%', margin: 'auto'}} spacing={2}>
+            <Grid item xs={12}>
+                <Profile />
+            </Grid>
+            <Grid item>
+                <ChallengeHandler />
+            </Grid>
+        </Grid>
     )
 }
 

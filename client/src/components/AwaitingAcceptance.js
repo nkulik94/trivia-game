@@ -8,8 +8,8 @@ function AwaitingAcceptance({ handleCancel }) {
         <Box sx={{
             width: '60%',
             margin: 'auto',
-            paddingTop: '30%',
-            paddingBottom: '30%',
+            // paddingTop: '30%',
+            // paddingBottom: '30%',
             textAlign: 'center'
         }}
         >
