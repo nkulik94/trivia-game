@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Player from "./Player";
 import GameBoard from "./GameBoard";
-import ErrorMsg from "./ErrorMsg";
 import GameOver from "./GameOver";
 
 
@@ -68,11 +67,9 @@ function Game() {
     if (!gameContext.game) return <div></div>
     if (!userContext.user) return <div></div>
 
-    //console.log(gameContext.game.current_question)
-
     return (
-        <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', textAlign: 'center'}}>
-            <Paper>
+        <Container sx={{width: '80%', height: 'fit-content', margin: 'auto', marginTop: '5rem', textAlign: 'center'}}>
+            <Paper sx={{padding: '2rem'}}>
                 <Typography variant="h2">{`${gameContext.game.player_1.name} vs ${gameContext.game.player_2.name}`}</Typography>
                 <Typography variant="h3">Pool: {gameContext.game.pool}</Typography>
                 <Typography variant="h4">{gameContext.game.message}</Typography>

@@ -4,7 +4,6 @@ import { CableContext } from '../context/cable'
 import { GameContext } from "../context/game";
 import Container from '@mui/material/Container';
 import ChallengeForm from "./ChallengeForm";
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import AwaitingAcceptance from "./AwaitingAcceptance";
 

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { GameContext } from '../context/game';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
@@ -8,10 +7,9 @@ import UserGameActions from './UserGameActions';
 import OpponentGameActions from './OpponentGameActions';
 
 function Player({ player, winnings, channel, isUser, isTurn }) {
-    const gameContext = useContext(GameContext)
 
     return (
-        <Card sx={{textAlign: 'center'}}>
+        <Card sx={{textAlign: 'center', height: '100%'}}>
             <CardContent>
                 <Avatar src={player.avatar_url} alt={player.name} sx={{maxWidth: 's', margin: 'auto'}}/>
                 <Typography variant='h6'>{player.name}</Typography>

@@ -16,7 +16,7 @@ class Game < ApplicationRecord
     end
 
     def find_new_question difficulty
-        question = Question.where(difficulty: difficulty).sample
+        question = difficulty ? Question.where(difficulty: difficulty).sample : Question.all.sample
         self.questions.find_by(id: question.id) ? self.find_new_question(difficulty: difficulty) : question
         self.questions << question
         question
