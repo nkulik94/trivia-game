@@ -79,11 +79,9 @@ function CreateChallenge({ button }) {
     }
 
     return (
-        <Container>
-            <Paper sx={{padding: '2rem'}}>
-                {showForm ? <ChallengeForm button={button} handleChallenge={handleChallenge}/> : <AwaitingAcceptance handleCancel={handleCancel} />}
-            </Paper>
-        </Container>
+        <Paper sx={{padding: '2rem', width: '100%'}}>
+            {showForm ? <ChallengeForm button={button} handleChallenge={handleChallenge}/> : <AwaitingAcceptance handleCancel={handleCancel} />}
+        </Paper>
     )
 }
 

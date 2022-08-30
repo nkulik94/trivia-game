@@ -21,11 +21,11 @@ function Dashboard() {
     if (!userContext.user) return <div></div>
 
     return (
-        <Grid container sx={{width: '80%', margin: 'auto'}} spacing={2}>
+        <Grid container sx={{width: '80%', margin: 'auto'}} spacing={1}>
             <Grid item xs={12}>
                 <Profile />
             </Grid>
-            <Grid item>
+            <Grid item xs={6}>
                 <ChallengeHandler />
             </Grid>
         </Grid>

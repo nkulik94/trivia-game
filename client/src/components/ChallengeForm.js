@@ -17,10 +17,8 @@ function ChallengeForm({ handleChallenge, button }) {
             {button}
             <Typography variant='h5' sx={{paddingTop: '2%'}}>Initiate a Challenge</Typography>
             <Box component='form' sx={{
-                width: '100%',
-                margin: 'auto',
-                paddingTop: '20%',
                 paddingBottom: '30%',
+                maxHeight: 300
             }}
             onSubmit={handleSubmit}
             >
