@@ -4,4 +4,6 @@ class UserSerializer < ActiveModel::Serializer
   def record
     "#{self.object.wins} - #{self.object.losses}"
   end
+
+  has_many :submissions
 end

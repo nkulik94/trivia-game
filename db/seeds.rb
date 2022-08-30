@@ -39,6 +39,12 @@ User.all.each do |user|
     if random_boolean?
         user.create_challenge(stakes: 100) unless user.username == 'nkulik' || user.username == 'joe'
     end
+    rand(1..15).times { user.submissions.create(question: Faker::Lorem.sentence, answer: Faker::Lorem.word) }
+end
+
+Submission.all.each do |submission|
+    submission.update(reviewed: true) if random_boolean?
+    submission.update(approved: random_boolean?) if submission.reviewed
 end
 
 puts "done seeding!"

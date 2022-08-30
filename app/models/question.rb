@@ -23,9 +23,9 @@ class Question < ApplicationRecord
                 new_question.question['&quot;'] = "\"" until !new_question.question['&quot;']
                 new_question.question['&#039;'] = "\'" until !new_question.question['&#039;']
                 new_question.question['&eacute;'] = "\u00E9" until !new_question.question['&eacute;']
-                new_question.incorrect_answers['&quot;'] = "\"" until !new_question['&quot;']
-                new_question.incorrect_answers['&#039;'] = "\'" until !new_question.incorrect_answers['&#039;']
-                new_question.incorrect_answers['&eacute;'] = "\u00E9" until !new_question.incorrect_answers['&eacute;']
+                new_question.all_answers_string['&quot;'] = "\"" until !new_question.all_answers_string['&quot;']
+                new_question.all_answers_string['&#039;'] = "\'" until !new_question.all_answers_string['&#039;']
+                new_question.all_answers_string['&eacute;'] = "\u00E9" until !new_question.all_answers_string['&eacute;']
                 new_question.save
                 puts new_question.question
             end
