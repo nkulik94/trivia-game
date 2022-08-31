@@ -7,6 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Dashboard from "./Dashboard";
 import Home from "./Home";
 import Game from "./Game";
+import CompleteSubmissionList from "./CompleteSubmissionList";
 
 function App() {
   const setUser = useContext(UserContext).setUser
@@ -29,6 +30,9 @@ function App() {
       </Route>
       <Route path="/dashboard">
         <Dashboard />
+      </Route>
+      <Route path='/all-submissions'>
+        <CompleteSubmissionList />
       </Route>
       <Route path="/create-account">
         <SignUp />

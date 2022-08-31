@@ -40,7 +40,7 @@ function SubmittedQuestion({ question, callback }) {
                     <>
                     <Typography variant='body'>Status: {question.status}</Typography>
                     <br/>
-                    <Typography variant="body">Upvotes: {question.upvote_count}</Typography>
+                    <Typography variant="body">Upvotes: {question.upvotes_count}</Typography>
                     </>
                 }
             />
