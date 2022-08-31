@@ -23,7 +23,9 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    TimerChannel.subscribers.delete "#{current_user.id}"
-    stop_stream_from "timer_for_#{params[:game_id]}_channel"
+    TimerChannel.subscribers.delete current_user.id
+    game = Game.find(params[:game_id])
+    game.handle_thread unless TimerChannel.subscribers[game.player_1.id] || TimerChannel.subscribers[game.player_2.id]
+    stop_all_streams
   end
 end
