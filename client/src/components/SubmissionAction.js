@@ -5,7 +5,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import SubmissionForm from "./SubmissionForm";
 
-function SubmissionAction({ isUser, submission, setQuestion, id }) {
+function SubmissionAction({ isUser, submission, callback, id }) {
     const [open, setOpen] = useState(false)
 
     const upvote = (
@@ -21,7 +21,7 @@ function SubmissionAction({ isUser, submission, setQuestion, id }) {
             {isUser ? edit : upvote}
             <SubmissionForm
                 submission={submission}
-                setQuestions={setQuestion}
+                callback={callback}
                 id={id}
                 open={open}
                 setOpen={setOpen}

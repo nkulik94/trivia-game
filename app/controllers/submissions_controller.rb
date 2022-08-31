@@ -20,7 +20,7 @@ class SubmissionsController < ApplicationController
     end
 
     def destroy
-        submission = Submission.find([params[:id]])
+        submission = Submission.find(params[:id])
         submission.destroy
         head :ok
     end

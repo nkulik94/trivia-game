@@ -11,9 +11,60 @@ import SubmissionForm from "./SubmissionForm";
 function SubmissionList({ questions }) {
     const [open, setOpen] = useState(false)
     const [questionList, setQuestions] = useState(questions)
+
+    function handleDelete(id) {
+        fetch(`/submissions/${id}`, {method: 'Delete'})
+        .then(r => {
+            if (r.ok) {
+                setQuestions(questionList.filter(question => question.id !== id))
+            }
+        })
+    }
+
+    function handleAdd(data) {
+        const config = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        fetch('/submissions', config)
+            .then(r => {
+                if (r.ok) {
+                    r.json().then(question => setQuestions([...questionList, question]))
+                }
+            })
+    }
+
+    function handleEdit(id, data) {
+        const config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+
+        fetch(`/submissions/${id}`, config)
+            .then(r => {
+                if (r.ok) {
+                    r.json().then(updatedQ => setQuestions(questionList.map(question => question.id === updatedQ.id ? updatedQ : question)))
+                }
+            })
+    }
+
+    function callback(dataObj) {
+        if (dataObj.id) {
+            dataObj.data ? handleEdit(dataObj.id, dataObj.data) : handleDelete(dataObj.id)
+        } else {
+            handleAdd(dataObj.data)
+        }
+    }
+
     const list = (
         <List sx={{maxHeight: 300}}>
-            {questionList.map(question => <SubmittedQuestion key={question.id} question={question}/>)}
+            {questionList.map(question => <SubmittedQuestion key={question.id} question={question} callback={callback} />)}
         </List>
     )
 
@@ -25,7 +76,7 @@ function SubmissionList({ questions }) {
                 <Typography variant='h4'>My Submissions</Typography>
                 {questionList.length == 0 ? <Typography variant="h6">No submitted questions yet!</Typography> : list}
             </Paper>
-           <SubmissionForm open={open} setOpen={setOpen} submission={{question: '', answer: ''}} setQuestions={setQuestions} questions={questionList}/>
+           <SubmissionForm open={open} setOpen={setOpen} submission={{question: '', answer: ''}} callback={callback}/>
         </Box>
     )
 }

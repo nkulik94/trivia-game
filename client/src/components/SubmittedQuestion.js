@@ -7,8 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import SubmissionAction from "./SubmissionAction";
 import { Typography } from "@mui/material";
 
-function SubmittedQuestion({ question }) {
-    const [displayQuestion, setQuestion] = useState(question)
+function SubmittedQuestion({ question, callback }) {
     const userContext = useContext(UserContext)
 
     const user = question.user && question.user.id !== userContext.user.id ? question.user : userContext.user
@@ -16,7 +15,12 @@ function SubmittedQuestion({ question }) {
     return (
         <ListItem
         secondaryAction={
-            <SubmissionAction isUser={user.id === userContext.user.id} id={displayQuestion.id} setQuestion={setQuestion} submission={{question: displayQuestion.question, answer: displayQuestion.answer}}/>
+            <SubmissionAction
+                isUser={user.id === userContext.user.id}
+                id={question.id}
+                callback={callback}
+                submission={{question: question.question, answer: question.answer}}
+            />
         }
         >
             <ListItemAvatar>
@@ -27,16 +31,16 @@ function SubmittedQuestion({ question }) {
                     <>
                     <Typography variant="body">@{user.username}</Typography>
                     <br/>
-                    <Typography variant="body"><strong>Question:</strong> {displayQuestion.question}</Typography>
+                    <Typography variant="body"><strong>Question:</strong> {question.question}</Typography>
                     <br/>
-                    <Typography variant="body"><strong>Answer:</strong> {displayQuestion.answer}</Typography>
+                    <Typography variant="body"><strong>Answer:</strong> {question.answer}</Typography>
                     </>
                 }
                 secondary={
                     <>
-                    <Typography variant='body'>Status: {displayQuestion.status}</Typography>
+                    <Typography variant='body'>Status: {question.status}</Typography>
                     <br/>
-                    <Typography variant="body">Upvotes: {displayQuestion.upvote_count}</Typography>
+                    <Typography variant="body">Upvotes: {question.upvote_count}</Typography>
                     </>
                 }
             />

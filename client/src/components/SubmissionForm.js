@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 
-function SubmissionForm({ open, setOpen, submission, setQuestions, questions, id = null }) {
+function SubmissionForm({ open, setOpen, submission, callback, id = null }) {
     const [formData, setFormData] = useState(submission)
 
     function handleForm(e) {
@@ -16,28 +16,6 @@ function SubmissionForm({ open, setOpen, submission, setQuestions, questions, id
     function handleCancel() {
         setFormData(submission)
         setOpen(false)
-    }
-
-    function handleSave() {
-        const method = id ? 'PATCH' : "POST"
-        const url = id ? `/submissions/${id}` : '/submissions'
-        const config = {
-            method: method,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        }
-
-        fetch(url, config)
-            .then(r => {
-                if (r.ok) {
-                    r.json().then(question => {
-                        method === 'POST' ? setQuestions([...questions, question]) : setQuestions(question)
-                        setOpen(false)
-                    })
-                }
-            })
     }
     
     return (
@@ -63,8 +41,26 @@ function SubmissionForm({ open, setOpen, submission, setQuestions, questions, id
                 />
             </Box>
             <DialogActions>
-                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={() => {
+                    callback({id, data: formData})
+                    setOpen(!open)
+                    }}>
+                        Save
+                    </Button>
                 <Button onClick={handleCancel}>Cancel</Button>
+                {id ?
+                    <Button
+                        onClick={() => {
+                            callback({id})
+                            setOpen(!open)
+                        }}
+                        color='error'
+                        >
+                            Delete
+                        </Button>
+                    :
+                    null
+                    }
             </DialogActions>
         </Dialog>
     )
