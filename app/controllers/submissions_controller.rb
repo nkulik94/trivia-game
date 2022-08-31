@@ -14,9 +14,17 @@ class SubmissionsController < ApplicationController
 
     def update
         submission = Submission.find(params[:id])
-        return render json: { errors: ["You can't edit a submission that's already been reviewed!"] }, status: :unprocessable_entity if submission.reviewed
-        submission.update!(submission_params)
-        render json: submission, status: :accepted
+        if params[:upvotes_count]
+            upvote = submission.upvotes.find_by(user_id: session[:user_id])
+            upvote ? upvote.destroy : submission.upvotes.create!(user_id: session[:user_id])
+            submission.update!(upvotes_count: params[:upvotes_count])
+            submission.upvotes_count >= 50 ? submission.update(approved: true) : submission.update(approved: false)
+            render json: submission, status: :accepted
+        else
+            return render json: { errors: ["You can't edit a submission that's already been reviewed!"] }, status: :unprocessable_entity if submission.reviewed
+            submission.update!(submission_params)
+            render json: submission, status: :accepted
+        end
     end
 
     def destroy

@@ -6,4 +6,5 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   has_many :submissions
+  has_many :upvotes
 end

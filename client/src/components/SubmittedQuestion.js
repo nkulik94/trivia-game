@@ -5,12 +5,37 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import SubmissionAction from "./SubmissionAction";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
-function SubmittedQuestion({ question, callback }) {
+function SubmittedQuestion({ question, callback, editList = null }) {
     const userContext = useContext(UserContext)
+    const upvoteIds = userContext.upvoteIds
+
+    if (!userContext.user) return <div></div>
 
     const user = question.user && question.user.id !== userContext.user.id ? question.user : userContext.user
+
+    function handleUpvote() {
+        const diff = upvoteIds[question.id] ? -1 : 1
+        const config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({upvotes_count: question.upvotes_count + diff})
+        }
+
+        fetch(`/submissions/${question.id}`, config)
+            .then(r => {
+                if (r.ok) {
+                    r.json().then(q => {
+                        editList(q)
+                        upvoteIds[question.id] = !upvoteIds[question.id]
+                        userContext.setUpvoteIds({...upvoteIds})
+                    })
+                }
+            })
+    }
 
     return (
         <ListItem
@@ -20,6 +45,7 @@ function SubmittedQuestion({ question, callback }) {
                 id={question.id}
                 callback={callback}
                 submission={{question: question.question, answer: question.answer}}
+                handleUpvote={handleUpvote}
             />
         }
         >

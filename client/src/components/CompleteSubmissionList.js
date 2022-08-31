@@ -4,9 +4,13 @@ import SubmittedQuestion from "./SubmittedQuestion";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import SearchBar from "./SearchBar";
 
 function CompleteSubmissionList() {
     const [questions, setQuestions] = useState([])
+    const [searched, setSearched] = useState('')
+
+    const filteredQuestions = questions.filter(question => question.user.username.toUpperCase().includes(searched.toUpperCase()))
 
     useEffect(() => {
         fetch('/submissions')
@@ -64,16 +68,23 @@ function CompleteSubmissionList() {
         }
     }
 
+    function editList(question) {
+        setQuestions(questions.map(q => q.id === question.id ? question : q))
+    }
+
+    //console.log(questions)
+
     return (
         <Container sx={{textAlign: 'center'}}>
             <Typography variant='h2'>All Submissions</Typography>
             <Typography sx={{marginLeft: '15%', marginRight: '15%'}} variant='h5'>These have not yet been approved. Any question with 50 or more upvotes will gain automatic approval (pending confirmation of accuracy), even if it has already been rejected!</Typography>
-            <Grid container spacing={2}>
-                {questions.map(question => {
+            <SearchBar searched={searched} setSearched={setSearched} placeholder={'Username'}/>
+            <Grid container spacing={2} sx={{marginTop: '1rem'}}>
+                {filteredQuestions.map(question => {
                     return (
                         <Grid item key={question.id} xs={6}>
                             <Card>
-                                <SubmittedQuestion question={question} callback={callback} />
+                                <SubmittedQuestion question={question} callback={callback} editList={editList} />
                             </Card>
                         </Grid>
                     )
