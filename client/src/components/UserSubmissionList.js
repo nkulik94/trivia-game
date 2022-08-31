@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from 'react-router-dom';
+import Link from "@mui/material/Link";
 import SubmittedQuestion from "./SubmittedQuestion";
 import List from "@mui/material/List";
 import Paper from "@mui/material/Paper";
@@ -7,7 +9,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SubmissionForm from "./SubmissionForm";
 
-function SubmissionList({ questions }) {
+function UserSubmissionList({ questions }) {
     const [open, setOpen] = useState(false)
     const [questionList, setQuestions] = useState(questions)
 
@@ -73,6 +75,7 @@ function SubmissionList({ questions }) {
             <Paper sx={{overflow: 'auto'}}>
                 <Button onClick={() => setOpen(true)}>Submit a question</Button>
                 <Typography variant='h4'>My Submissions</Typography>
+                <Link component={RouterLink} to='/all-submissions'>View and upvote other users' submissions</Link>
                 {questionList.length == 0 ? <Typography variant="h6">No submitted questions yet!</Typography> : list}
             </Paper>
            <SubmissionForm open={open} setOpen={setOpen} submission={{question: '', answer: ''}} callback={callback}/>
@@ -80,4 +83,4 @@ function SubmissionList({ questions }) {
     )
 }
 
-export default SubmissionList
+export default UserSubmissionList

@@ -6,7 +6,7 @@ import ChallengeHandler from "./ChallengeHandler";
 import Grid from "@mui/material/Grid";
 import Profile from "./Profile";
 import Typography from "@mui/material/Typography";
-import SubmissionList from "./SubmissionList";
+import UserSubmissionList from "./UserSubmissionList";
 
 function Dashboard() {
     const userContext = useContext(UserContext)
@@ -30,7 +30,7 @@ function Dashboard() {
                 <ChallengeHandler />
             </Grid>
             <Grid item xs={6}>
-                <SubmissionList questions={userContext.user.submissions}/>
+                <UserSubmissionList questions={userContext.user.submissions}/>
             </Grid>
         </Grid>
     )

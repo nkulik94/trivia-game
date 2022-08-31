@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link as RouterLink } from 'react-router-dom';
+import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import SubmittedQuestion from "./SubmittedQuestion";
 import Card from "@mui/material/Card";
@@ -77,6 +79,7 @@ function CompleteSubmissionList() {
     return (
         <Container sx={{textAlign: 'center'}}>
             <Typography variant='h2'>All Submissions</Typography>
+            <Link component={RouterLink} to='/dashboard' sx={{width: 'fit-content', margin: 'auto'}}>Return to dashboard</Link>
             <Typography sx={{marginLeft: '15%', marginRight: '15%'}} variant='h5'>These have not yet been approved. Any question with 50 or more upvotes will gain automatic approval (pending confirmation of accuracy), even if it has already been rejected!</Typography>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={'Username'}/>
             <Grid container spacing={2} sx={{marginTop: '1rem'}}>
