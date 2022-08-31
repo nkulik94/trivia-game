@@ -3,7 +3,7 @@ class SubmissionsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index
-        render json: Submission.all
+        render json: Submission.where(approved: false)
     end
 
     def create
