@@ -7,13 +7,19 @@ import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import SearchBar from "./SearchBar";
+import PageButtons from "./PageButtons";
 
 function CompleteSubmissionList() {
     const [questions, setQuestions] = useState([])
     const [searched, setSearched] = useState('')
+    const [page, setPage] = useState({start: 0, end: 20})
 
     const filteredQuestions = questions.filter(question => question.user.username.toUpperCase().includes(searched.toUpperCase()))
 
+    //const [listedQuestions, setList] = useState(filteredQuestions.slice(0, 20))
+
+    const pageCount = Math.ceil(filteredQuestions.length / 20)
+    
     useEffect(() => {
         fetch('/submissions')
             .then(r => r.json())
@@ -80,10 +86,10 @@ function CompleteSubmissionList() {
         <Container sx={{textAlign: 'center'}}>
             <Typography variant='h2'>All Submissions</Typography>
             <Link component={RouterLink} to='/dashboard' sx={{width: 'fit-content', margin: 'auto'}}>Return to dashboard</Link>
-            <Typography sx={{marginLeft: '15%', marginRight: '15%'}} variant='h5'>These have not yet been approved. Any question with 50 or more upvotes will gain automatic approval (pending confirmation of accuracy), even if it has already been rejected!</Typography>
+            <Typography sx={{marginLeft: '15%', marginRight: '15%'}} variant='h5'>These have not yet been added to the database. Any question with 50 or more upvotes will gain automatic approval and be added to the database pending confirmation of accuracy, even if it has already been rejected!</Typography>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={'Username'}/>
             <Grid container spacing={2} sx={{marginTop: '1rem'}}>
-                {filteredQuestions.map(question => {
+                {filteredQuestions.slice(page.start, page.end).map(question => {
                     return (
                         <Grid item key={question.id} xs={6}>
                             <Card>
@@ -93,6 +99,7 @@ function CompleteSubmissionList() {
                     )
                 })}
             </Grid>
+            <PageButtons setPage={setPage} count={pageCount} />
         </Container>
     )
 }
