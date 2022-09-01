@@ -8,7 +8,7 @@ class ChallengesController < ApplicationController
 
     def create
         user = User.find(session[:user_id])
-        challenge = user.create_challenge(stakes: params[:stakes])
+        challenge = user.create_challenge!(stakes: params[:stakes])
         serialized_challenge = ActiveModelSerializers::Adapter::Json.new(
             ChallengeSerializer.new(challenge)
           ).serializable_hash

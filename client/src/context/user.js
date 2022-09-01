@@ -21,6 +21,10 @@ function UserProvider({ children }) {
         setUpvoteIds
     }
 
+    if (user) {
+        console.log(user.is_admin)
+    }
+
     return <UserContext.Provider value={currentUser}>{children}</UserContext.Provider>;
 }
 

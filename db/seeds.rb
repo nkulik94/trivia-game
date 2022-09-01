@@ -20,7 +20,7 @@ def user_info
     name: name,
     username: username,
     password: Faker::Alphanumeric.alphanumeric(number: 8, min_numeric: 3),
-    avatar_url: Faker::Avatar.image,
+    avatar_url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/#{rand(1..700)}.png",
     email: "#{name.split(' ').join('')}@fakedomain.com",
     points: 500
     }
@@ -29,7 +29,10 @@ end
 User.create(user_info) until User.count == 10
 
 User.create(name: 'Naftali', username: 'nkulik', email: 'nkulik1994@gmail.com', password: 'nkulik', points: 500, avatar_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/149.png')
-User.create(name: 'joe', username: 'joe', email: 'joe@joe.com', password: 'joe', points: 500, avatar_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/249.png')
+User.create(name: 'joe', username: 'joe', email: 'joe@joe.com', password: 'joe', points: 500, avatar_url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/#{rand(1..700)}.png")
+
+Admin.create(username: 'nkulik')
+AdminKey.create(password: 'backwardjeopardy')
 
 def random_boolean?
     rand(1..2) == 1
