@@ -8,6 +8,7 @@ import AnswerButton from './AnswerButton';
 
 function Question({ question, channel }) {
     const currentStakes = useContext(GameContext).game.current_stakes
+    
     return (
         <CardContent sx={{textAlign: 'center'}}>
             <Typography variant='h6'>

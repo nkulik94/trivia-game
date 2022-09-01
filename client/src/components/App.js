@@ -9,6 +9,7 @@ import Home from "./Home";
 import Game from "./Game";
 import CompleteSubmissionList from "./CompleteSubmissionList";
 import AdminAppBar from "./AdminAppBar";
+import QuestionList from "./QuestionList";
 
 function App() {
   const userContext = useContext(UserContext)
@@ -44,6 +45,9 @@ function App() {
       </Route>
       <Route path="/play">
         <Game />
+      </Route>
+      <Route path="/question-list">
+        <QuestionList isAdmin={userContext.user && userContext.user.is_admin} />
       </Route>
     </Switch>
     </>
