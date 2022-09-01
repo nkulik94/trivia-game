@@ -11,7 +11,8 @@ class GameSessionsController < ApplicationController
     def destroy
         if session[:game_id]
             session.delete :game_id
-            head :no_content
+            user = User.find(session[:user_id])
+            render json: { points: user.points, record: "#{user.wins} - #{user.losses}" }
         end
     end
 end

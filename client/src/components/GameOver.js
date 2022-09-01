@@ -7,17 +7,22 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import { UserContext } from '../context/user';
 
 function GameOver() {
     const gameContext = useContext(GameContext)
+    const userContext = useContext(UserContext)
     const history = useHistory()
 
     function redirect() {
         fetch('/current-game', {method: 'DELETE'})
             .then(r => {
                 if (r.ok) {
-                    gameContext.setGame(null)
-                    history.push('/dashboard')
+                    r.json().then(({ points, record }) => {
+                        userContext.setUser({...userContext.user, points, record})
+                        gameContext.setGame(null)
+                        history.push('/dashboard')
+                    })
                 }
             })
     }
