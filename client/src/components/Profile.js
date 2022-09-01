@@ -5,7 +5,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-function Profile() {
+function Profile({ setOpen }) {
     const userContext = useContext(UserContext)
 
     return (
@@ -17,7 +17,7 @@ function Profile() {
             />
             <Typography variant='h4'>{userContext.user.name}</Typography>
             <Typography variant="h5">@{userContext.user.username}</Typography>
-            <Button>Edit Profile</Button>
+            <Button onClick={() => setOpen(true)}>Edit Profile</Button>
             <Typography variant='h6'>Points: {userContext.user.points}</Typography>
             <Typography variant="h6">Record: {userContext.user.record}</Typography>
         </Card>
