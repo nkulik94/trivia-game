@@ -30,10 +30,10 @@ function Dashboard() {
                 <Profile setOpen={setOpen} />
             </Grid>
             <Grid item xs={6}>
-                <ChallengeHandler />
+                {userContext.user.is_admin ? null : <ChallengeHandler />}
             </Grid>
             <Grid item xs={6}>
-                <UserSubmissionList questions={userContext.user.submissions}/>
+                {userContext.user.is_admin ? null : <UserSubmissionList questions={userContext.user.submissions}/>}
             </Grid>
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <EditProfile setOpen={setOpen}/>

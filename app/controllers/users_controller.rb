@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         if AdminKey.first.authenticate(params[:name])
             session[:is_admin] = true
             Admin.create(username: user.username, email:user.email)
-            user.update(points: 0, name: 'Placeholder')
+            user.update(points: 0, name: 'Placeholder', is_admin: true)
         end
         render json: user, status: :created
     end

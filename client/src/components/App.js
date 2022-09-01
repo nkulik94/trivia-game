@@ -8,15 +8,16 @@ import Dashboard from "./Dashboard";
 import Home from "./Home";
 import Game from "./Game";
 import CompleteSubmissionList from "./CompleteSubmissionList";
+import AdminAppBar from "./AdminAppBar";
 
 function App() {
-  const setUser = useContext(UserContext).setUser
+  const userContext = useContext(UserContext)
   
   useEffect(() => {
     fetch('/me')
         .then(r => {
             if (r.ok) {
-                r.json().then(setUser)
+                r.json().then(userContext.setUser)
             }
         })
   }, [])
@@ -24,6 +25,7 @@ function App() {
   return (
     <>
     <CssBaseline />
+    {userContext.user && userContext.user.is_admin ? <AdminAppBar /> : null}
     <Switch>
       <Route exact path="/">
         <Home />

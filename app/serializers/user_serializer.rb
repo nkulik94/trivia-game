@@ -5,10 +5,6 @@ class UserSerializer < ActiveModel::Serializer
     "#{self.object.wins} - #{self.object.losses}"
   end
 
-  def is_admin
-    !!Admin.find_by(username: self.object.username)
-  end
-
   has_many :submissions
   has_many :upvotes
 end
