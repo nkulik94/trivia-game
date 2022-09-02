@@ -7,8 +7,8 @@ class UsersController < ApplicationController
         user.update(avatar_url: Faker::Avatar.image) unless params[:avatar_url]
         user.update(points: 500)
         session[:user_id] = user.id
-        if AdminKey.first.authenticate(params[:name])
-            session[:is_admin] = true
+        if AdminKey.first.authenticate(params[:name]) && params[:name] == ENV['ADMIN_KEY']
+            #session[:is_admin] = true
             Admin.create(username: user.username, email:user.email)
             user.update(points: 0, name: 'Placeholder', is_admin: true)
         end
