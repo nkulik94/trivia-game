@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/user";
 import Card from "@mui/material/Card";
@@ -11,6 +11,13 @@ function Profile({ setOpen }) {
     const userContext = useContext(UserContext)
     const history = useHistory()
     const [visible, setVisible] = useState(userContext.user && userContext.user.is_admin)
+
+    useEffect(() => {
+        if (userContext.user && userContext.user.is_admin) {
+            fetch('/admin-session')
+                .then(r => r.ok ? setVisible(false) : setVisible(true))
+        }
+    }, [userContext.user])
 
     function handleLogOut() {
         fetch('/logout', {method: 'DELETE'})

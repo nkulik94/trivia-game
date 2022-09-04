@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   post "/admin-login", to: "sessions#admin"
 
+  get "/admin-session", to: "admins#show"
+
   delete "/logout", to: "sessions#destroy"
 
   get "/current-game", to: "game_sessions#show"
