@@ -10,4 +10,17 @@ class Submission < ApplicationRecord
         user.update(points: user.points + 100)
         self.update(added: true)
     end
+
+    def handle_approved
+        ApprovalMailer.with(submission: self).approval_email.deliver_later
+        self.update(approved: true)
+    end
+
+    def handle_rejected
+        self.update(reviewed: true)
+    end
+
+    def handle_reviewed params
+        params[:approved] ? self.handle_approved : self.handle_rejected
+    end
 end

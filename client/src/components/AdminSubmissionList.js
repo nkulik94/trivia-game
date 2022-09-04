@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import EditQuestion from "./EditQuestion";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ApproveQuestionDialog from "./ApproveQuestionDialog";
 
@@ -44,13 +43,11 @@ function AdminSubmissionList() {
 
     function handleDialog(question, answer, id) {
         setOpen(true)
+        setId(id)
         if (value === 'approved') {
             setFormData({...formData, question, correct_answer: answer})
-            setId(id)
         }
     }
-
-    //const openDialogBtn = <Button onClick={() => setOpen(true)}>{value === 'pending' ? 'Approve' : "Add"}</Button>
 
     const filteredQuestions = submissions.filter(question => question.user.username.toUpperCase().includes(searched.toUpperCase()))
 
@@ -77,6 +74,26 @@ function AdminSubmissionList() {
             })
     }
 
+    function handleReview(body) {
+        const config = {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+
+        fetch(`/submissions/${submissionId}`, config)
+            .then(r => {
+                if (r.ok) {
+                    r.json().then(submission => {
+                        setSubmissions(submissions.filter(s => s.id !== submission.id))
+                        setOpen(false)
+                    })
+                }
+            })
+    }
+
     return (
         <Container sx={{textAlign: 'center'}}>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={'Username'}/>
@@ -91,14 +108,14 @@ function AdminSubmissionList() {
                     return (
                         <Grid item key={question.id} xs={6}>
                             <Card>
-                                <SubmittedQuestion question={question} value={value === 'pending' ? 'approve' : 'add'} handleAdminActions={handleDialog} />
+                                <SubmittedQuestion question={question} value={value === 'pending' ? 'review' : 'add'} handleAdminActions={handleDialog} />
                             </Card>
                         </Grid>
                     )
                 })}
             </Grid>
             <Dialog open={open} onClose={() => setOpen(false)}>
-                {value === 'pending' ? <ApproveQuestionDialog setOpen={setOpen} /> : <EditQuestion setForm={setFormData} formData={formData} handleCancel={handleCancel} callbackObj={{callback: handleNewQuestion}} />}
+                {value === 'pending' ? <ApproveQuestionDialog setOpen={setOpen} handleReview={handleReview} /> : <EditQuestion setForm={setFormData} formData={formData} handleCancel={handleCancel} callbackObj={{callback: handleNewQuestion}} />}
             </Dialog>
             <PageButtons setPage={setPage} count={pageCount} />
         </Container>

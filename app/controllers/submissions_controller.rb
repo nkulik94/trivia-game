@@ -24,6 +24,11 @@ class SubmissionsController < ApplicationController
 
     def update
         submission = Submission.find(params[:id])
+        if params[:reviewed]
+            return render json: { error: 'Only admins can review questions!' }, status: :unauthorized unless session[:is_admin]
+            submission.handle_reviewed(params)
+            return render json: submission, status: :accepted
+        end
         if params[:upvotes_count]
             upvote = submission.upvotes.find_by(user_id: session[:user_id])
             upvote ? upvote.destroy : submission.upvotes.create!(user_id: session[:user_id])
