@@ -7,10 +7,12 @@ class SubmissionsController < ApplicationController
     end
 
     def pending
+        return render json: { error: 'Only admins can perform this action' }, status: :unauthorized unless session[:is_admin]
         render json: Submission.where(approved: false, reviewed: false).order(upvotes_count: :desc)
     end
 
     def approved
+        return render json: { error: 'Only admins can perform this action' }, status: :unauthorized unless session[:is_admin]
         render json: Submission.where(approved: true, added: false)
     end
 
