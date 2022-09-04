@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 function AdminMenuList({ onClickList }) {
-    const options = [{name: 'Home', link: '/'}, {name: 'Dashboard', link: '/dashboard'}, {name: 'Questions', link: '/question-list'}, {name: 'Submissions', link: '/submission-review'}, {name: 'Users', link: '/user-edit'}]
+    const options = [{name: 'Home', link: '/'}, {name: 'Dashboard', link: '/dashboard'}, {name: 'Questions', link: '/question-list'}, {name: 'Submissions', link: '/admin-submissions-list'}, {name: 'Users', link: '/user-edit'}]
 
     return (
         <Box

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :submissions
+  resources :submissions, except: [:show]
   resources :questions
   resources :games, only: [:show, :create, :update]
   resources :challenges, only: [:index, :create, :destroy]

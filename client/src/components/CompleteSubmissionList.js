@@ -16,8 +16,6 @@ function CompleteSubmissionList() {
 
     const filteredQuestions = questions.filter(question => question.user.username.toUpperCase().includes(searched.toUpperCase()))
 
-    //const [listedQuestions, setList] = useState(filteredQuestions.slice(0, 20))
-
     const pageCount = Math.ceil(filteredQuestions.length / 20)
     
     useEffect(() => {
