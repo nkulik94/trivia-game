@@ -6,6 +6,14 @@ class SubmissionsController < ApplicationController
         render json: Submission.where(approved: false).order(upvotes_count: :desc)
     end
 
+    def pending
+        render json: Submission.where(approved: false, reviewed: false).order(upvotes_count: :desc)
+    end
+
+    def approved
+        render json: Submission.where(approved: true, added: false)
+    end
+
     def create
         user = User.find(session[:user_id])
         new_submission = user.submissions.create!(submission_params)

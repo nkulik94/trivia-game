@@ -22,6 +22,10 @@ Rails.application.routes.draw do
 
   delete "/current-game", to: "game_sessions#destroy"
 
+  get '/pending-submissions', to: "submissions#pending"
+
+  get '/approved-submissions', to: "submissions#approved"
+
   mount ActionCable.server => '/cable'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
