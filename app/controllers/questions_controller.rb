@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
     end
 
     def create
+        Submission.find(params[:submission_id]).handle_added if params[:submission_id]
         all_answers = [params[:incorrect_1], params[:incorrect_2], params[:incorrect_3]] + [params[:correct_answer]]
         question = Question.create!(question: params[:question], correct_answer: params[:correct_answer], difficulty: params[:difficulty], category: params[:category], all_answers_string: all_answers.shuffle.join('|'))
         render json: question, status: :created

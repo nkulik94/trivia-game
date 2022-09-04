@@ -6,8 +6,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import SubmissionAction from "./SubmissionAction";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
-function SubmittedQuestion({ question, callback, editList = null }) {
+function SubmittedQuestion({ question, callback, editList = null, handleAdminActions = null, value = null }) {
     const userContext = useContext(UserContext)
     const upvoteIds = userContext.upvoteIds
 
@@ -37,17 +38,21 @@ function SubmittedQuestion({ question, callback, editList = null }) {
             })
     }
 
-    return (
-        <ListItem
-        secondaryAction={
-            <SubmissionAction
+    const userAction = (
+        <SubmissionAction
                 isUser={user.id === userContext.user.id}
                 id={question.id}
                 callback={callback}
                 submission={{question: question.question, answer: question.answer}}
                 handleUpvote={handleUpvote}
             />
-        }
+    )
+
+    const adminAction = <Button onClick={() => handleAdminActions(question.question, question.answer, question.id)}>{value}</Button>
+
+    return (
+        <ListItem
+        secondaryAction={value ? adminAction : userAction}
         >
             <ListItemAvatar>
                 <Avatar src={user.avatar_url} alt={user.name} />

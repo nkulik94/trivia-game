@@ -5,11 +5,15 @@ import DialogActions from '@mui/material/DialogActions';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
-function EditQuestion({ handleForm, formData, callbackObj, handleCancel }) {
+function EditQuestion({ setForm, formData, callbackObj, handleCancel }) {
 
     function handleSubmit(e) {
         e.preventDefault()
         callbackObj.id ? callbackObj.callback('edit', formData) : callbackObj.callback(formData)
+    }
+
+    function handleForm(e) {
+        setForm({...formData, [e.target.name]: e.target.value})
     }
 
     return (

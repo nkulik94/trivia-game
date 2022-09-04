@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   get '/approved-submissions', to: "submissions#approved"
 
+  post '/approved-questions/:submission_id', to: "questions#create"
+
   mount ActionCable.server => '/cable'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

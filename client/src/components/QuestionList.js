@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { QuestionsContext } from "../context/questions";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -10,7 +11,7 @@ import EditQuestion from "./EditQuestion";
 import Button from "@mui/material/Button";
 
 function QuestionList({ isAdmin }) {
-    const [questions, setQuestions] = useState([])
+    const questionsContext = useContext(QuestionsContext)
     const [searched, setSearched] = useState('')
     const [page, setPage] = useState({start: 0, end: 20})
     const [open, setOpen] = useState(false)
@@ -30,7 +31,7 @@ function QuestionList({ isAdmin }) {
             .then(r => {
                 if (r.ok) {
                     r.json().then(questionList => {
-                        setQuestions(questionList)
+                        questionsContext.setQuestions(questionList)
                         setCallback({...callbackObj, questions: questionList})
                     })
                 }
@@ -58,10 +59,6 @@ function QuestionList({ isAdmin }) {
             })
     }
 
-    function handleForm(e) {
-        setForm({...formData, [e.target.name]: e.target.value})
-    }
-
     function handleReset(questions) {
         setForm({
             question: '',
@@ -80,8 +77,8 @@ function QuestionList({ isAdmin }) {
         fetch(`/questions/${id}`, {method: 'DELETE'})
             .then(r => {
                 if (r.ok) {
-                    const newList = questions.filter(q => q.id !== id)
-                    setQuestions(newList)
+                    const newList = questionsContext.questions.filter(q => q.id !== id)
+                    questionsContext.setQuestions(newList)
                     handleReset(newList)
                 }
             })
@@ -100,7 +97,7 @@ function QuestionList({ isAdmin }) {
             .then(r => {
                 if (r.ok) {
                     r.json().then(question => {
-                        setQuestions([...this.questions, question])
+                        questionsContext.setQuestions([...this.questions, question])
                         handleReset([...this.questions, question])
                     })
                 }
@@ -120,8 +117,8 @@ function QuestionList({ isAdmin }) {
             .then(r => {
                 if (r.ok) {
                     r.json().then(question => {
-                        const newList = questions.map(q => q.id === id ? question : q)
-                        setQuestions(newList)
+                        const newList = questionsContext.questions.map(q => q.id === id ? question : q)
+                        questionsContext.setQuestions(newList)
                         handleReset(newList)
                     })
                 }
@@ -132,7 +129,7 @@ function QuestionList({ isAdmin }) {
         action === 'delete' ? handleDelete(this.id) : handleEdit(this.id, body)
     }
 
-    const filteredList = questions.filter(question => question.question.toUpperCase().includes(searched.toUpperCase()))
+    const filteredList = questionsContext.questions.filter(question => question.question.toUpperCase().includes(searched.toUpperCase()))
 
     //console.log(formData)
 
@@ -157,7 +154,7 @@ function QuestionList({ isAdmin }) {
             <Dialog open={open} onClose={handleReset}>
                 <EditQuestion
                 formData={formData}
-                handleForm={handleForm}
+                setForm={setForm}
                 handleCancel={handleReset}
                 callbackObj={callbackObj}
                 />
