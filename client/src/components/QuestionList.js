@@ -7,6 +7,7 @@ import PageButtons from "./PageButtons";
 import Dialog from "@mui/material/Dialog";
 import SearchBar from "./SearchBar";
 import EditQuestion from "./EditQuestion";
+import Button from "@mui/material/Button";
 
 function QuestionList({ isAdmin }) {
     const [questions, setQuestions] = useState([])
@@ -28,7 +29,10 @@ function QuestionList({ isAdmin }) {
         fetch('/questions')
             .then(r => {
                 if (r.ok) {
-                    r.json().then(setQuestions)
+                    r.json().then(questionList => {
+                        setQuestions(questionList)
+                        setCallback({...callbackObj, questions: questionList})
+                    })
                 }
             })
     }, [])
@@ -58,7 +62,7 @@ function QuestionList({ isAdmin }) {
         setForm({...formData, [e.target.name]: e.target.value})
     }
 
-    function handleReset() {
+    function handleReset(questions) {
         setForm({
             question: '',
             category: '',
@@ -69,15 +73,16 @@ function QuestionList({ isAdmin }) {
             incorrect_3: ''
         })
         setOpen(false)
-        setCallback({callback: handleNewQuestion})
+        setCallback({callback: handleNewQuestion, questions: questions})
     }
 
     function handleDelete(id) {
         fetch(`/questions/${id}`, {method: 'DELETE'})
             .then(r => {
                 if (r.ok) {
-                    setQuestions(questions.filter(q => q.id !== id))
-                    handleReset()
+                    const newList = questions.filter(q => q.id !== id)
+                    setQuestions(newList)
+                    handleReset(newList)
                 }
             })
     }
@@ -95,8 +100,8 @@ function QuestionList({ isAdmin }) {
             .then(r => {
                 if (r.ok) {
                     r.json().then(question => {
-                        setQuestions([question, ...questions])
-                        handleReset()
+                        setQuestions([...this.questions, question])
+                        handleReset([...this.questions, question])
                     })
                 }
             })
@@ -115,8 +120,9 @@ function QuestionList({ isAdmin }) {
             .then(r => {
                 if (r.ok) {
                     r.json().then(question => {
-                        setQuestions(questions.map(q => q.id === id ? question : q))
-                        handleReset()
+                        const newList = questions.map(q => q.id === id ? question : q)
+                        setQuestions(newList)
+                        handleReset(newList)
                     })
                 }
             })
@@ -135,6 +141,8 @@ function QuestionList({ isAdmin }) {
     return (
         <Container sx={{marginTop: '5rem', textAlign: 'center'}}>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={"Question"} />
+            <br/>
+            <Button sx={{marginTop: '1rem'}} onClick={() => setOpen(true)}>Add New Question</Button>
             <Grid container spacing={2} sx={{marginTop: '1rem'}}>
                 {filteredList.slice(page.start, page.end).map(question => {
                     return (

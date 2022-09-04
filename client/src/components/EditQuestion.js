@@ -6,8 +6,14 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 
 function EditQuestion({ handleForm, formData, callbackObj, handleCancel }) {
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        callbackObj.id ? callbackObj.callback('edit', formData) : callbackObj.callback(formData)
+    }
+
     return (
-        <Box component='form' sx={{padding: '1rem'}}>
+        <Box component='form' sx={{padding: '1rem'}} onSubmit={handleSubmit}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <TextField
@@ -80,7 +86,7 @@ function EditQuestion({ handleForm, formData, callbackObj, handleCancel }) {
                 </Grid>
             </Grid>
             <DialogActions>
-                <Button onClick={() => callbackObj.id ? callbackObj.callback('edit', formData) : callbackObj.callback()}>Save</Button>
+                <Button type='submit'>Save</Button>
                 <Button onClick={handleCancel}>Cancel</Button>
                 {callbackObj.id ? <Button color='error' onClick={() => callbackObj.callback('delete')}>Delete Question</Button> : null}
             </DialogActions>
