@@ -109,7 +109,7 @@ class Game < ApplicationRecord
             sleep(2)
             self.handle_thread
             if self.current_question.is_correct_answer?(data['answer'])
-                winnings = data['id'] == self.buzzed_by_id ? self.current_stakes : self.current_stakes / 2
+                winnings = self.current_stakes
                 self.update(message: "#{self.get_player(data['id']).name} is correct! #{self.get_player(data['id']).name} has won #{winnings} points!")
                 self.broadcast
                 sleep(2)
