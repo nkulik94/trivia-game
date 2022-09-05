@@ -12,6 +12,7 @@ import Tab from "@mui/material/Tab";
 import EditQuestion from "./EditQuestion";
 import Dialog from "@mui/material/Dialog";
 import ApproveQuestionDialog from "./ApproveQuestionDialog";
+import Typography from "@mui/material/Typography";
 
 function AdminSubmissionList() {
     const questionsContext = useContext(QuestionsContext)
@@ -48,7 +49,7 @@ function AdminSubmissionList() {
         }
     }
 
-    const filteredQuestions = submissions.filter(question => question.user.username.toUpperCase().includes(searched.toUpperCase()))
+    const filteredQuestions = submissions.filter(question => question.question.toUpperCase().includes(searched.toUpperCase()))
 
     const pageCount = Math.ceil(filteredQuestions.length / 20)
 
@@ -95,7 +96,8 @@ function AdminSubmissionList() {
 
     return (
         <Container sx={{textAlign: 'center'}}>
-            <SearchBar searched={searched} setSearched={setSearched} placeholder={'Username'}/>
+            <Typography variant="h2">Submissions</Typography>
+            <SearchBar searched={searched} setSearched={setSearched} placeholder={'Question'}/>
             <Box>
                 <Tabs value={value} onChange={(_, value) => setValue(value)}>
                     <Tab value='pending' label="pending" />

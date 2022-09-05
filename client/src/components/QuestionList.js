@@ -9,6 +9,7 @@ import Dialog from "@mui/material/Dialog";
 import SearchBar from "./SearchBar";
 import EditQuestion from "./EditQuestion";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 function QuestionList({ isAdmin }) {
     const questionsContext = useContext(QuestionsContext)
@@ -136,7 +137,8 @@ function QuestionList({ isAdmin }) {
     if (!isAdmin) return <div></div>
 
     return (
-        <Container sx={{marginTop: '5rem', textAlign: 'center'}}>
+        <Container sx={{textAlign: 'center'}}>
+            <Typography variant="h2">Questions</Typography>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={"Question"} />
             <br/>
             <Button sx={{marginTop: '1rem'}} onClick={() => setOpen(true)}>Add New Question</Button>

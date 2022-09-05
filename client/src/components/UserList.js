@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import SearchBar from './SearchBar';
 import PageButtons from './PageButtons';
 import UserCard from './UserCard';
+import Typography from '@mui/material/Typography';
 
 function UserList() {
     const [users, setUsers] = useState([])
@@ -28,8 +29,9 @@ function UserList() {
 
     return (
         <Container sx={{textAlign: 'center'}}>
+            <Typography variant="h2">Users</Typography>
             <SearchBar searched={searched} setSearched={setSearched} placeholder={'Email'}/>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} sx={{marginTop: '1rem'}}>
                 {filteredList.slice(page.start, page.end).map(user => {
                     return (
                         <Grid item xs={6} key={user.id}>
