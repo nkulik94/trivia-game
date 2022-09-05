@@ -12,6 +12,7 @@ import AdminAppBar from "./AdminAppBar";
 import QuestionList from "./QuestionList";
 import AdminSubmissionList from "./AdminSubmissionList";
 import UserList from "./UserList";
+import Help from "./Help";
 
 function App() {
   const userContext = useContext(UserContext)
@@ -56,6 +57,9 @@ function App() {
       </Route>
       <Route path='/user-list'>
         <UserList />
+      </Route>
+      <Route path='/help'>
+        <Help />
       </Route>
     </Switch>
     </>

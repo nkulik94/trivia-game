@@ -25,7 +25,7 @@ function Home() {
                 <Typography variant="h5">Where we ask the questions and you find the answers</Typography>
                 <br/>
                 <br/>
-                <Typography variant="body">Welcome to Backward Jeopardy! Here you can compete with other users for "points", which are kind meant to represent real money. Please be sure to <Link component={RouterLink} to='/rules'>read the rules</Link> before competing</Typography>
+                <Typography variant="body">Welcome to Backward Jeopardy! Here you can compete with other users for "points", which are kind of meant to represent real money. Please be sure to <Link component={RouterLink} to='/help'>read the rules</Link> before competing</Typography>
                 <br/>
                 <br/>
                 {user ? <Link component={RouterLink} to='/dashboard'>Dashboard</Link> : loginBtns}

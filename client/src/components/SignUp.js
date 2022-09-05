@@ -103,7 +103,6 @@ function SignUp() {
                   label="Username"
                   value={formData.username}
                   onChange={handleForm}
-                  autoFocus
                 />
               </Grid>
               <Grid item xs={12}>
