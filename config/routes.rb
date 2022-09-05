@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   patch "/users/:id", to: "users#update"
 
+  get "/users", to: "users#index"
+
   post "/login", to: "sessions#create"
 
   post "/admin-login", to: "sessions#admin"
