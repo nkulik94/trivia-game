@@ -33,5 +33,10 @@ class GameChannel < ApplicationCable::Channel
     if game.over?
       stop_stream_from "game_#{params[:game_id]}_channel"
     end
+    sleep(20)
+    unless GameChannel.subscribers["#{game.user_id}"] || GameChannel.subscribers["#{game.player_2_id}"]
+      game.handle_thread
+      game.destroy
+    end
   end
 end
