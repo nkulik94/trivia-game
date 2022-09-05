@@ -32,10 +32,11 @@ class UsersController < ApplicationController
         if has_admin_params?
             return render json: { error: "Only admins can perform this action!" }, status: :unauthorized unless session[:is_admin]
             user.update!(admin_params)
+            render json: user, status: :accepted, serializer: UserListSerializer
         else
             user.update!(user_params)
+            render json: user, status: :accepted
         end
-        render json: user, status: :accepted
     end
 
     private
