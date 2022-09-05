@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
     def index
         return render json: { error: "Only admins can perform this action!" }, status: :unauthorized unless session[:is_admin]
-        render json: User.all
+        render json: User.where(is_admin: false), each_serializer: UserListSerializer
     end
 
     def create
