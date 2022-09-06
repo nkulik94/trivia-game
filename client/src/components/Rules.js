@@ -4,7 +4,9 @@ import Box from "@mui/material/Box";
 
 function Rules() {
     return (
-        <Box>
+        <Box sx={{marginTop: '2rem'}}>
+            <Typography variant="h3">Rules</Typography>
+            <br/>
             <Typography variant='h6'>Challenges:</Typography>
             <Typography variant="body">
                 Challenges can be initiated by users by clicking on the "Start a Challenge" button at
