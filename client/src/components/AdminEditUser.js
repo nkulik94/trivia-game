@@ -21,7 +21,7 @@ function AdminUserEdit({ field, value, onSubmit, onCancel }) {
             <TextField
             type="text"
             label={field}
-            value={form[field] || 0}
+            value={form[field] || ''}
             onChange={e => setForm({[field]: e.target.value})}
             />
             <DialogActions>
