@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
+import { Link as RouterLink } from 'react-router-dom'
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/user";
+import Link from "@mui/material/Link";
 import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -43,6 +45,8 @@ function Profile({ setOpen }) {
             {visible ? <AdminAuth setVisible={setVisible}/> : null}
             <Typography variant='h6'>Points: {userContext.user.points}</Typography>
             <Typography variant="h6">Record: {userContext.user.record}</Typography>
+            <Link component={RouterLink} to='/'>Home</Link>
+            <br/>
             <Button color='error' onClick={handleLogOut}>Log Out</Button>
         </Card>
     )
