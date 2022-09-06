@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :issues
   resources :submissions, except: [:show]
   resources :questions
   resources :games, only: [:show, :create, :update]
