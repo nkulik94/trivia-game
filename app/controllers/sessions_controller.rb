@@ -11,12 +11,11 @@ class SessionsController < ApplicationController
         end
     end
 
-    def admin
-        if AdminKey.first.authenticate(params[:password])
-            session[:is_admin] = true
+    def admin_show
+        if session[:is_admin]
             head :ok
         else
-            render json: { error: "Incorrect password" }, status: :unauthorized
+            head :unauthorized
         end
     end
 
