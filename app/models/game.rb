@@ -81,7 +81,7 @@ class Game < ApplicationRecord
         self.broadcast
         sleep(1.05)
         self.handle_thread
-        self.update(message: "#{self.get_player(id).name} must answer before the countdown clock hits 0")
+        self.update(message: "#{self.get_player(id).name} must answer before time is up!")
         self.broadcast
         thread = Thread.new do
             set_timer(10, thread)
