@@ -11,13 +11,13 @@ class SessionsController < ApplicationController
         end
     end
 
-    # def admin_create
-    #     if session[:is_admin]
-    #         head :ok
-    #     else
-    #         head :unauthorized
-    #     end
-    # end
+    def admin_create
+        if session[:is_admin]
+            head :ok
+        else
+            head :unauthorized
+        end
+    end
 
     def destroy
         if session[:user_id]

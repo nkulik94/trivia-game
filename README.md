@@ -58,6 +58,8 @@ This app has the ability to grant Admin access to authorized users. When creatin
 
 `post /admin-login` - `admins#show`, logs admin in by saving `is_admin` boolean to session hash
 
+`get /admin-session` - `sessions#admin_create`, checks if currently logged in user is authorized as admin.
+
 `delete /logout` - `sessions#destroy`, logs user out and clears user info from session hash
 
 `post /signup` - `users#create` creates a new user based on login credentials and saves `user_id` to session hash
