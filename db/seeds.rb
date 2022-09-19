@@ -1,14 +1,14 @@
 puts "start seeding..."
 
-# puts "getting token..."
+puts "getting token..."
 
-# session = RestClient.get "https://opentdb.com/api_token.php?command=request"
+session = RestClient.get "https://opentdb.com/api_token.php?command=request"
 
-# token = JSON.parse(session)["token"]
+token = JSON.parse(session)["token"]
 
-# puts "getting questions..."
+puts "getting questions..."
 
-# Question.get_all_questions(token)
+Question.get_all_questions(token)
 
 User.destroy_all
 Admin.destroy_all
@@ -35,7 +35,7 @@ User.create(user_info) until User.count == 10
 User.create(name: 'Naftali', username: 'nkulik', email: 'nkulik1994@gmail.com', password: 'nkulik', points: 500, avatar_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/149.png')
 User.create(name: 'joe', username: 'joe', email: 'joe@joe.com', password: 'joe', points: 500, avatar_url: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/#{rand(1..700)}.png")
 
-# AdminKey.create(password: ENV['ADMIN_KEY']) unless AdminKey.find(1)
+AdminKey.create(password: ENV['ADMIN_KEY']) unless AdminKey.find(1)
 
 def random_boolean?
     rand(1..2) == 1
