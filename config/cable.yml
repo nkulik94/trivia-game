@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: rediss://:p1699b67a21113d8d10f08c9de5503d337ed648507cafc20c9a11acf3a005571f@ec2-34-236-221-186.compute-1.amazonaws.com:11310
+  url: redis://:p1699b67a21113d8d10f08c9de5503d337ed648507cafc20c9a11acf3a005571f@ec2-34-236-221-186.compute-1.amazonaws.com:11309
   channel_prefix: trivia_game_production
