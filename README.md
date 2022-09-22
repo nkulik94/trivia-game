@@ -25,7 +25,7 @@ To run the app locally, you will need to have Postgres installed. To make sure t
 
 ## Technologies
 
-This app uses a Rails API backend and a React frontend, and a Postgresql database. Client-server communication is done via either HTTP protocol or WebSockets (using Action Cable), depending on the need. Action Mailer is used to send emails as needed.
+This app uses a Rails API backend and a React frontend, and a PostgreSQL database. Client-server communication is done via either HTTP protocol or WebSockets (using Action Cable), depending on the need. Action Mailer is used to send emails as needed.
 
 ## Admin Access
 
