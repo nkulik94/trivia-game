@@ -5,32 +5,18 @@ Welcome to Backward Jeopardy, a trivia game with the novel idea that we ask the 
 ## Deploy/demo
 
 To see the app in action either [try it out for yourself](https://backward-jeopardy.herokuapp.com/) (you'll need to sign in with a second user on an incognito browser to actually play) or watch one or both of the following demos (clicking the links will take you to YouTube):
-<br/>
-<br/>
-<figure style="text-align:center;width:50%;margin:auto;">
-    <a href="https://youtu.be/jksncUyl4JM">
-        <img
-        src="./images/in-game-image.png"
-        alt="regular user"
-        >
-    </a>
-    <figcaption>Demo for regular user</figcaption>
-</figure>
-<br/>
-<br/>
-<figure style="text-align:center;width:50%;margin:auto">
-    <a href="https://youtu.be/Cfq0JNiC3dE">
-        <img
-        src="./images/admin-image.png"
-        alt="admin user"
-        >
-    </a>
-    <figcaption>Demo for Admin User</figcaption>
-</figure>
+
+| [![Regular User Demo](./images/in-game-image.png)](https://youtu.be/jksncUyl4JM) |
+| -------------------------------------------------------------------------------- |
+| <p style="text-align:center">Regular User Demo</p>                               |
+
+| [![Admin User Demo](./images/admin-image.png)](https://youtu.be/Cfq0JNiC3dE)     |
+| -------------------------------------------------------------------------------- |
+| <p style="text-align:center">Admin User Demo<p>                                  |
 
 ## How to run the app
 
-To run the app locally, you will need to have Postgres installed. To make sure the postgres service is running, run `sudo service postgresql start`. To run the app, run `rails s` to start the server, and `npm start --prefix client` to open the app in the browser. Run `rails db:migrate` to run the migrations. To seed the database with 1500 random questions from [Open Trivia DB](https://opentdb.com/api_config.php), uncomment lines 3 - 11 in `/db/seeds.rb` and run `rails db:seed`. More later on manually adding/editing/deleting questions.
+To run the app locally, you will need to have Postgres installed. To make sure the postgres service is running, run `sudo service postgresql start`. Install the dependencies by running `bundle install` and `npm install --prefix client`. To run the app, run `rails s` to start the server, and `npm start --prefix client` to open the app in the browser. Run `rails db:migrate` to run the migrations. To seed the database with 1500 random questions from [Open Trivia DB](https://opentdb.com/api_config.php), uncomment lines 3 - 11 in `/db/seeds.rb` and run `rails db:seed`. More later on manually adding/editing/deleting questions.
 
 ## Technologies
 
