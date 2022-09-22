@@ -4,7 +4,7 @@ Welcome to Backward Jeopardy, a trivia game with the novel idea that we ask the 
 
 ## Deploy/demo
 
-To see the app in action either [try it out for yourself](https://backward-jeopardy.herokuapp.com/) (you'll need to sign in with a second user on an incognito browser to actually play) or watch one or both of the following demos (clicking the links will take you to YouTube):
+To see the app in action either [try it out for yourself](https://backward-jeopardy.herokuapp.com/) (you'll need to sign in with a second user on an incognito browser to actually play) or watch one or both of the following demos (clicking the pictures will take you to YouTube):
 
 | [![Regular User Demo](./images/in-game-image.png)](https://youtu.be/jksncUyl4JM) |
 | -------------------------------------------------------------------------------- |
