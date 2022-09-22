@@ -8,13 +8,18 @@ To see the app in action either [try it out for yourself](https://backward-jeopa
 
 | [![Regular User Demo](./images/in-game-image.png)](https://youtu.be/jksncUyl4JM) |
 | -------------------------------------------------------------------------------- |
-| <p style="text-align:center">Regular User Demo</p>                               |
+| <div style="text-align:center"><p>Regular User Demo</p></div>                    |
 
 | [![Admin User Demo](./images/admin-image.png)](https://youtu.be/Cfq0JNiC3dE)     |
 | -------------------------------------------------------------------------------- |
-| <p style="text-align:center">Admin User Demo<p>                                  |
+| <div style="text-align:center"><p>Admin User Demo</p></div>                      |
 
-## How to run the app
+## Running the app
+
+<img
+src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif"
+style="width:300px"
+/>
 
 To run the app locally, you will need to have Postgres installed. To make sure the postgres service is running, run `sudo service postgresql start`. Install the dependencies by running `bundle install` and `npm install --prefix client`. To run the app, run `rails s` to start the server, and `npm start --prefix client` to open the app in the browser. Run `rails db:migrate` to run the migrations. To seed the database with 1500 random questions from [Open Trivia DB](https://opentdb.com/api_config.php), uncomment lines 3 - 11 in `/db/seeds.rb` and run `rails db:seed`. More later on manually adding/editing/deleting questions.
 
@@ -24,9 +29,19 @@ This app uses a Rails API backend and a React frontend, and a Postgresql databas
 
 ## Admin Access
 
+<img
+src="https://media.giphy.com/media/jZuKY2yJ2dj1OJfgoN/giphy.gif"
+style="width:300px"
+/>
+
 This app has the ability to grant Admin access to authorized users. When creating an account, if the user inputs the Admin Key in the "name" field, an admin account will automatically be created. Once an admin user is created, they can log in with their regular credentials. The key will need to be entered again after every login in order to authorize admin-only actions. This key can be set by assigning a value to the `ADMIN_KEY` environment variable and running the code on line 38 in `/db/seeds.rb`, either by uncommenting it there or running it in the console.
 
 ## Models/tables
+
+<img
+src="./images/database.jpg"
+style="width:300px"
+/>
 
 `AdminKey` - used to set the admin key, has one row, `password_digest`, which represents the key.
 
@@ -48,6 +63,11 @@ This app has the ability to grant Admin access to authorized users. When creatin
 
 ## Channels
 
+<img
+src="https://media.giphy.com/media/MuJDYvbYKzMwONKvdO/giphy.gif"
+style="width:300px"
+/>
+
 `ChallengeChannel` - all users subscribe to this channel on login by default. Provides real-time updates to the list of available challenges.
 
 `StartChallengeChannel` - subscribed to by user upon submitting or accepting a challenge. Used to coordinate start of game.
@@ -56,7 +76,12 @@ This app has the ability to grant Admin access to authorized users. When creatin
 
 `TimerChannel` - subscribed to when beginning a game. Broadcasts game timer data to players.
 
-## Routes/actions
+## Routes
+
+<img
+src="./images/routes.jpg"
+style="width:300px"
+/>
 
 ### WebSocket
 
@@ -101,6 +126,11 @@ Full CRUD, all admin-only.
 Additional route, `post /approved-questions/:submission_id`, to create new question from approved submission. This is needed because action needs to be taken regarding the submission as well.
 
 ## Mailers
+
+<img
+src="https://media.giphy.com/media/IvWQpaLYotX9e/giphy.gif"
+style="width:300px"
+/>
 
 For now, there are two mailers, `approval_mailer`, which handles emails notifying users of approved submissions, and `addition_mailer`, to notify users if their submission was added to DB.
 
