@@ -123,7 +123,7 @@ Two additional routes, `get /pending-submissions` and `get /approved-submissions
 
 Full CRUD, all admin-only.
 
-Additional route, `post /approved-questions/:submission_id`, to create new question from approved submission. This is needed because action needs to be taken regarding the submission as well.
+Additional route, `post /approved-questions/:submission_id`, to create new question from approved submission. This is needed because action needs to be taken regarding the `submission` instance as well.
 
 ## Mailers
 
@@ -132,7 +132,7 @@ src="https://media.giphy.com/media/IvWQpaLYotX9e/giphy.gif"
 style="width:300px"
 />
 
-For now, there are two mailers, `approval_mailer`, which handles emails notifying users of approved submissions, and `addition_mailer`, to notify users if their submission was added to DB.
+For now, there are two mailers, which are located in `/app/mailers`: `approval_mailer`, which handles emails notifying users of approved submissions, and `addition_mailer`, to notify users if their submission was added to DB.
 
 ## Frontend
 
