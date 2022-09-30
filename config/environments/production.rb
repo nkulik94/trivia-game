@@ -38,7 +38,7 @@ Rails.application.configure do
   config.action_cable.url = "wss://backward-jeopardy.herokuapp.com/cable"
   config.action_cable.allowed_request_origins = [ "http://backward-jeopardy.herokuapp.com", /http:\/\/backward-jeopardy.herokuapp.com.*/ ]
 
-  #config.action_cable.disable_request_forgery_protection = true
+  config.action_cable.disable_request_forgery_protection = true
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
