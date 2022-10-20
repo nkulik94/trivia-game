@@ -15,9 +15,9 @@ Rails.application.routes.draw do
 
   post "/login", to: "sessions#create"
 
-  post "/admin-login", to: "admins#show"
+  post "/admin-login", to: "sessions#admin_create"
 
-  get "/admin-session", to: "sessions#admin_create"
+  get "/admin-session", to: "admins#show"
 
   delete "/logout", to: "sessions#destroy"
 
