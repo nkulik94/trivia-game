@@ -35,7 +35,6 @@ class Question < ApplicationRecord
     end
 
     def self.get_all_questions token
-        #categories = [{num: 9, name: "General Knowledge"}, {num: 17, name: "Science & Nature"}, {num: 21, name: "Sports"}, {num: 22, name: "Geography"}, {num: 23, name: "History"}]
         difficulties = ['easy', 'medium', 'hard']
         difficulties.each { |difficulty| self.get_and_save_questions(token, difficulty) }
     end
