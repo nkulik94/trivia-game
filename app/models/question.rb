@@ -29,12 +29,12 @@ class Question < ApplicationRecord
     end
 
     def fix_punctuation
-        self.question['&quot;'] = "\"" until !new_question.question['&quot;']
-        self.question['&#039;'] = "\'" until !new_question.question['&#039;']
-        self.question['&eacute;'] = "\u00E9" until !new_question.question['&eacute;']
-        self.all_answers_string['&quot;'] = "\"" until !new_question.all_answers_string['&quot;']
-        self.all_answers_string['&#039;'] = "\'" until !new_question.all_answers_string['&#039;']
-        self.all_answers_string['&eacute;'] = "\u00E9" until !new_question.all_answers_string['&eacute;']
+        self.question['&quot;'] = "\"" until !self.question['&quot;']
+        self.question['&#039;'] = "\'" until !self.question['&#039;']
+        self.question['&eacute;'] = "\u00E9" until !self.question['&eacute;']
+        self.all_answers_string['&quot;'] = "\"" until !self.all_answers_string['&quot;']
+        self.all_answers_string['&#039;'] = "\'" until !self.all_answers_string['&#039;']
+        self.all_answers_string['&eacute;'] = "\u00E9" until !self.all_answers_string['&eacute;']
         self.save
     end
 
