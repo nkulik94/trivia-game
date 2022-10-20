@@ -20,18 +20,22 @@ class Question < ApplicationRecord
                     correct_answer: question['correct_answer'],
                     all_answers_string: all_answers.shuffle.join('|')
                 })
-                new_question.question['&quot;'] = "\"" until !new_question.question['&quot;']
-                new_question.question['&#039;'] = "\'" until !new_question.question['&#039;']
-                new_question.question['&eacute;'] = "\u00E9" until !new_question.question['&eacute;']
-                new_question.all_answers_string['&quot;'] = "\"" until !new_question.all_answers_string['&quot;']
-                new_question.all_answers_string['&#039;'] = "\'" until !new_question.all_answers_string['&#039;']
-                new_question.all_answers_string['&eacute;'] = "\u00E9" until !new_question.all_answers_string['&eacute;']
-                new_question.save
+                new_question.fix_punctuation
                 puts new_question.question
             end
             puts difficulty
             sleep(1)
         end
+    end
+
+    def fix_punctuation
+        self.question['&quot;'] = "\"" until !new_question.question['&quot;']
+        self.question['&#039;'] = "\'" until !new_question.question['&#039;']
+        self.question['&eacute;'] = "\u00E9" until !new_question.question['&eacute;']
+        self.all_answers_string['&quot;'] = "\"" until !new_question.all_answers_string['&quot;']
+        self.all_answers_string['&#039;'] = "\'" until !new_question.all_answers_string['&#039;']
+        self.all_answers_string['&eacute;'] = "\u00E9" until !new_question.all_answers_string['&eacute;']
+        self.save
     end
 
     def self.get_all_questions token
