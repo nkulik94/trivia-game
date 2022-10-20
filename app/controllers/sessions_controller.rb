@@ -4,7 +4,6 @@ class SessionsController < ApplicationController
         user = User.find_by(email: params[:email])
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
-            #session[:is_admin] = true if Admin.find_by(username: user.username)
             render json: user, status: :created
         else
             render json: { error: "Invalid username or password" }, status: :unauthorized
