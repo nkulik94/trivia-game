@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Link from '@mui/material/Link'
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
+import Demos from "./Demos";
 
 function Home() {
     const user = useContext(UserContext).user
@@ -30,6 +31,7 @@ function Home() {
                 <br/>
                 {user ? <Link component={RouterLink} to='/dashboard'>Dashboard</Link> : loginBtns}
             </Paper>
+            <Demos />
         </Container>
     )
 }
