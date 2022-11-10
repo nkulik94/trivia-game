@@ -9,10 +9,10 @@ function Demos() {
             <Typography variant="h4">Demo Videos</Typography>
             <Grid container spacing={2} sx={{marginTop: '1rem'}}>
                 <Grid item xs={6}>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/jksncUyl4JM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/jksncUyl4JM" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                 </Grid>
                 <Grid item xs={6}>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Cfq0JNiC3dE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Cfq0JNiC3dE" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                 </Grid>
             </Grid>
         </Paper>
