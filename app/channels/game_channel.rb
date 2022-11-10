@@ -1,13 +1,8 @@
 class GameChannel < ApplicationCable::Channel
   @@subscribers = {}
-  @@threads = {}
 
   def self.subscribers
     @@subscribers
-  end
-
-  def self.threads
-    @@threads
   end
 
   def subscribed
@@ -32,6 +27,7 @@ class GameChannel < ApplicationCable::Channel
     game = Game.find(params[:game_id])
     if game.over?
       stop_stream_from "game_#{params[:game_id]}_channel"
+      return
     end
     sleep(20)
     unless GameChannel.subscribers["#{game.user_id}"] || GameChannel.subscribers["#{game.player_2_id}"]
